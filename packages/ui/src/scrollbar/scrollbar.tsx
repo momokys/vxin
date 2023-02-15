@@ -1,15 +1,16 @@
 import { computed, defineComponent, ref, Transition } from 'vue'
-import { useDrag, useEventListener, useNamespace, useResizeObserver } from '@vxin/hooks'
-import { scrollbarProps } from './props'
-import { addunit } from '@vxin/utils'
 import { isUndefined } from 'lodash'
+import { useDrag, useEventListener, useResizeObserver } from '@vxin/hooks'
+import { addunit } from '@vxin/utils'
+import { useNamespace } from '@/_hooks'
+import { scrollbarProps } from './props'
 
 const miniLen = 20
 const thumbWidth = 6
 const gap = 2
 
 export default defineComponent({
-  name: 'ZScrollbar',
+  name: 'VScrollbar',
   props: scrollbarProps,
   emits: ['scroll'],
   setup(props, { emit, slots, expose }) {

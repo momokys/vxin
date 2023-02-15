@@ -1,6 +1,6 @@
 import { defineComponent, ref } from 'vue'
-import { useNamespace } from '@vxin/hooks'
-import { ZIcon, ZWave } from '..'
+import { useNamespace } from '@/_hooks'
+import { VIcon, VWave } from '..'
 import { buttonProps } from './props'
 
 const defaultLoadingIcon = (
@@ -13,22 +13,22 @@ const defaultLoadingIcon = (
 )
 
 export default defineComponent({
-  name: 'ZButton',
+  name: 'VButton',
   props: buttonProps,
   emits: ['click'],
   setup(props, { emit, slots }) {
     const ns = useNamespace('button')
-    const btnfRef = ref<HTMLButtonElement>()
-    const waveRef = ref<InstanceType<typeof ZWave>>()
+    const btnRef = ref<HTMLButtonElement>()
+    const waveRef = ref<InstanceType<typeof VWave>>()
     const handleClick = (ev: MouseEvent) => {
       if (props.disabled || props.loading) return
-      waveRef.value?.play(getComputedStyle(btnfRef.value!).borderColor)
+      waveRef.value?.play(getComputedStyle(btnRef.value!).borderColor)
       emit('click', ev)
     }
     const renderIcon = () => {
       const _icon_normal = slots.icon?.() ?? props.icon
       const _icon: any = !props.loading ? _icon_normal : props.loadingIcon ?? defaultLoadingIcon
-      return _icon ? <ZIcon class={ns.e('icon')} icon={_icon} /> : []
+      return _icon ? <VIcon class={ns.e('icon')} icon={_icon} /> : []
     }
     const renderLabel = () => {
       const _label_normal = slots.default?.() ?? props.label
@@ -37,7 +37,7 @@ export default defineComponent({
     }
     return () => (
       <button
-        ref={btnfRef}
+        ref={btnRef}
         class={[
           ns.b(),
           ns.m(props.type),
@@ -54,7 +54,7 @@ export default defineComponent({
       >
         {renderIcon()}
         {renderLabel()}
-        <ZWave ref={waveRef} />
+        <VWave ref={waveRef} />
       </button>
     )
   },

@@ -1,7 +1,7 @@
 import { defineComponent, renderSlot } from 'vue'
 import { isArray, isNumber } from 'lodash'
 import { ComponentSize } from '@vxin/utils'
-import { useNamespace } from '@vxin/hooks'
+import { useNamespace } from '@/_hooks'
 import { spaceProps } from './props'
 
 const getGap = (size: Exclude<ComponentSize, 'mini'> | number | [number, number]): string => {
@@ -18,7 +18,7 @@ const getGap = (size: Exclude<ComponentSize, 'mini'> | number | [number, number]
 }
 
 export default defineComponent({
-  name: 'ZSpace',
+  name: 'VSpace',
   props: spaceProps,
   setup(props, { slots }) {
     const ns = useNamespace('space')

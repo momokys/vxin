@@ -2,7 +2,7 @@
   <Story title="Icon" :layout="{ type: 'grid', width: 400 }">
     <Variant title="playground">
       <template #default>
-        <z-icon v-bind="state" />
+        <v-icon v-bind="state" />
       </template>
       <template #controls>
         <HstNumber title="size" v-model="state.size" />
@@ -13,7 +13,7 @@
 </template>
 <script setup lang="ts">
 import { reactive } from 'vue'
-import { ZIcon } from '@vxin/ui'
+import { VIcon } from '@vxin/ui'
 import { HstNumber, HstText } from '@histoire/controls'
 
 const state = reactive<Record<string, any>>({

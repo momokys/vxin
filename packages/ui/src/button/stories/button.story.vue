@@ -1,7 +1,7 @@
 <template>
   <Story title="Button" :layout="{ type: 'grid', width: 400 }">
     <Variant title="playground">
-      <z-button v-bind="state" @click="logEvent('click', $event)" />
+      <v-button v-bind="state" @click="logEvent('click', $event)" />
       <template #controls>
         <HstText title="label" v-model="state.label" />
         <HstSelect
@@ -42,7 +42,7 @@
 <script setup lang="ts">
 import { reactive } from 'vue'
 import { logEvent } from 'histoire/client'
-import { ZButton } from '..'
+import { VButton } from '..'
 import { HstText, HstSelect, HstCheckbox } from '@histoire/controls'
 
 const state = reactive<Record<string, any>>({

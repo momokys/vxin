@@ -1,8 +1,8 @@
 import { defineComponent, nextTick, ref } from 'vue'
-import { useNamespace } from '@vxin/hooks'
+import { useNamespace } from '@/_hooks'
 
 export default defineComponent({
-  name: 'ZWave',
+  name: 'VWave',
   emits: ['click'],
   setup() {
     const ns = useNamespace('wave')

@@ -1,10 +1,10 @@
 import { computed, CSSProperties, defineComponent, h, resolveDynamicComponent } from 'vue'
 import { isNumber, isString, isUndefined } from 'lodash'
-import { useNamespace } from '@vxin/hooks'
+import { useNamespace } from '@/_hooks'
 import { iconProps } from './props'
 
 export default defineComponent({
-  name: 'ZIcon',
+  name: 'VIcon',
   props: iconProps,
   emits: ['click'],
   setup(props, { slots, emit }) {

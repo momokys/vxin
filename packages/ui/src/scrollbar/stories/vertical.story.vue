@@ -3,11 +3,11 @@
     <Variant title="playground">
       <template #default>
         <div style="height: 400px">
-          <z-scrollbar v-bind="state">
+          <v-scrollbar v-bind="state">
             <div class="scrollbar-demo-list col">
               <div v-for="item in list" :key="item" class="scrollbar-demo-item">{{ item }}</div>
             </div>
-          </z-scrollbar>
+          </v-scrollbar>
         </div>
       </template>
     </Variant>
@@ -16,7 +16,7 @@
 <script setup lang="ts">
 import { reactive } from 'vue'
 // import { hstEvent } from 'histoire/client'
-import { ZScrollbar } from '@vxin/ui'
+import { VScrollbar } from '@vxin/ui'
 
 const state = reactive<Record<string, any>>({
   gap: true,
@@ -41,7 +41,7 @@ function generateItems(total: number) {
     justify-content: center;
     align-items: center;
     border-radius: 3px;
-    background-color: var(--z-color-primary);
+    background-color: var(--v-color-primary);
     font-size: 16px;
     color: #ffffff;
   }

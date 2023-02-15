@@ -7,7 +7,7 @@
 @forward "common/mixins";
 
 :root {
-  @include map-css-var(color, $colors);
+  //@include map-css-var(color, $colors);
   @include map-css-var(size, $sizes);
   @include map-css-var(padding, $paddings);
   @include map-css-var(font-size, $fontSizes);

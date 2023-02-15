@@ -3,12 +3,12 @@ import { withInstall } from '@vxin/utils'
 import '@/_style/button.scss'
 
 export default withInstall(Button)
-export const ZButton = Button
+export const VButton = Button
 export { buttonProps } from './props'
 export type { ButtonProps, ButtonType } from './props'
 
 declare module 'vue' {
   export interface GlobalComponents {
-    ZButton: typeof ZButton
+    VButton: typeof VButton
   }
 }

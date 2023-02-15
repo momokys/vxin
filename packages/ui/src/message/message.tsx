@@ -1,11 +1,11 @@
 import {Component, defineComponent, PropType, Transition, ref, onMounted} from 'vue'
-import { ZIcon } from '@/icon'
-import { useNamespace } from '@vxin/hooks'
+import { VIcon } from '..'
+import { useNamespace } from '@/_hooks'
 
 export type MessageType = 'success' | 'error' | 'warning' | 'info'
 
 export default defineComponent({
-  name: 'ZMessage',
+  name: 'VMessage',
   props: {
     id: String,
     msg: String,
@@ -33,7 +33,7 @@ export default defineComponent({
     return () => (
       <Transition name={ns.b()} onAfterLeave={props.onDestroy}>
         <div v-show={visible.value} id={props.id} class={[ns.b(), ns.m(props.type)]}>
-          <ZIcon icon={props.icon} />
+          <VIcon icon={props.icon} />
           <p>{props.msg}</p>
         </div>
       </Transition>

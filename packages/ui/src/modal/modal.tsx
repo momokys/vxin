@@ -10,13 +10,14 @@ import {
 } from 'vue'
 import { isUndefined } from 'lodash'
 import { addunit } from '@vxin/utils'
-import { Position, useDrag, useEventListener, useNamespace } from "@vxin/hooks";
-import { ZButton } from '@/button'
-import { modalProps } from './props'
+import { Position, useDrag, useEventListener } from '@vxin/hooks'
 import { Close, FullScreen, Minus } from '@vxin/icons'
+import { VButton } from '@/button'
+import { useNamespace } from '@/_hooks'
+import { modalProps } from './props'
 
 export default defineComponent({
-  name: 'ZModal',
+  name: 'VModal',
   props: modalProps,
   setup(props, { slots, emit, expose }) {
     const ns = useNamespace('modal')
@@ -169,14 +170,14 @@ export default defineComponent({
               <div class={ns.e('header')} onMousedown={handleDrag}>
                 <div class={ns.e('title')}>{props.title ?? '标题'}</div>
                 <div class={ns.e('toolbar')}>
-                  <ZButton icon={fullscreen.value ? Minus : FullScreen} size={'small'} text={true} onClick={toggleFullscreen} />
-                  <ZButton icon={Close} size={'small'} text={true} onClick={close} />
+                  <VButton icon={fullscreen.value ? Minus : FullScreen} size={'small'} text={true} onClick={toggleFullscreen} />
+                  <VButton icon={Close} size={'small'} text={true} onClick={close} />
                 </div>
               </div>
               <div class={ns.e('body')}>{slots.default?.()}</div>
               <div class={ns.e('footer')}>
-                <ZButton label={'取消'} type={'default'} />
-                <ZButton label={'确定'} type={'primary'} />
+                <VButton label={'取消'} type={'default'} />
+                <VButton label={'确定'} type={'primary'} />
               </div>
             </div>
           </div>

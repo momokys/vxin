@@ -2,7 +2,7 @@
   <Story title="Message" :layout="{ type: 'grid', width: 800, height: 500 }">
     <Variant title="playground">
       <template #default>
-        <z-button label="消息" type="primary" @click="onClick" />
+        <v-button label="消息" type="primary" @click="onClick" />
 <!--        <div style="height: 200px">-->
 <!--          <z-message :type="'success'" :icon="Close" :content="'提交成功'" :visible="visible" />-->
 <!--        </div>-->
@@ -12,7 +12,7 @@
   </Story>
 </template>
 <script setup lang="ts">
-import { ZButton } from '@/button'
+import { VButton } from '@/button'
 import { message } from '@vxin/ui'
 import { Close } from '@vxin/icons'
 

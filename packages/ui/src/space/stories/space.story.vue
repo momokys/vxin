@@ -2,13 +2,13 @@
   <Story title="Space" :layout="{ type: 'grid', width: 800 }">
     <Variant title="playground">
       <template #default>
-        <z-space v-bind="state">
+        <v-space v-bind="state">
           <div class="box">1</div>
           <div class="box">2</div>
           <div class="box">3</div>
           <div class="box">4</div>
           <div class="box">5</div>
-        </z-space>
+        </v-space>
       </template>
       <template #controls>
         <HstRadio
@@ -61,7 +61,7 @@
 </template>
 <script setup lang="ts">
 import { reactive } from 'vue'
-import { ZSpace } from '@vxin/ui'
+import { VSpace } from '@vxin/ui'
 import { HstCheckbox, HstRadio, HstSelect } from '@histoire/controls'
 
 const state = reactive<Record<string, any>>({
@@ -81,6 +81,6 @@ const state = reactive<Record<string, any>>({
   border-radius: 5px;
   font-size: 24px;
   color: #ffffff;
-  background-color: var(--z-color-primary);
+  background-color: var(--v-color-primary);
 }
 </style>
