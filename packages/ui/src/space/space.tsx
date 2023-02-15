@@ -3,7 +3,6 @@ import { isArray, isNumber } from 'lodash'
 import { ComponentSize } from '@vxin/utils'
 import { useNamespace } from '@vxin/hooks'
 import { spaceProps } from './props'
-import '@vxin/theme/space.scss'
 
 const getGap = (size: Exclude<ComponentSize, 'mini'> | number | [number, number]): string => {
   if (isArray(size)) return `${size[0]}px ${size[1]}px`

@@ -2,7 +2,6 @@ import { computed, CSSProperties, defineComponent, h, resolveDynamicComponent } 
 import { isNumber, isString, isUndefined } from 'lodash'
 import { useNamespace } from '@vxin/hooks'
 import { iconProps } from './props'
-import '@vxin/theme/icon.scss'
 
 export default defineComponent({
   name: 'ZIcon',

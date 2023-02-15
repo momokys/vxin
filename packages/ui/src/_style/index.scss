@@ -1,6 +1,11 @@
 @use "common/mixins" as *;
 @use "common/var" as *;
 
+@forward "common/config";
+@forward "common/var";
+@forward "common/fun";
+@forward "common/mixins";
+
 :root {
   @include map-css-var(color, $colors);
   @include map-css-var(size, $sizes);

@@ -1,4 +1,4 @@
-import '@vxin/theme/index.scss'
+import '@/_style/index.scss'
 
 export * from './button'
 export * from './wave'

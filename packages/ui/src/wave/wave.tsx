@@ -1,6 +1,5 @@
 import { defineComponent, nextTick, ref } from 'vue'
 import { useNamespace } from '@vxin/hooks'
-import '@vxin/theme/wave.scss'
 
 export default defineComponent({
   name: 'ZWave',

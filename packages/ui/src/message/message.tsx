@@ -1,7 +1,6 @@
 import {Component, defineComponent, PropType, Transition, ref, onMounted} from 'vue'
-import { ZIcon } from '@vxin/ui'
+import { ZIcon } from '@/icon'
 import { useNamespace } from '@vxin/hooks'
-import '@vxin/theme/message.scss'
 
 export type MessageType = 'success' | 'error' | 'warning' | 'info'
 

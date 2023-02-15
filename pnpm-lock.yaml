@@ -13,7 +13,6 @@ importers:
       '@types/fs-extra': ^9.0.13
       '@types/jsdom': ^16.2.14
       '@types/lodash': ^4.14.178
-      '@types/lodash-es': ^4.17.6
       '@types/node': ^16.11.41
       '@vitejs/plugin-vue': ^4.0.0
       '@vitejs/plugin-vue-jsx': ^3.0.0
@@ -24,7 +23,6 @@ importers:
       '@vxin/colors': workspace:^0.0.1
       '@vxin/hooks': workspace:^0.0.1
       '@vxin/icons': workspace:^0.0.1
-      '@vxin/theme': workspace:^0.0.1
       '@vxin/ui': workspace:^0.0.1
       '@vxin/utils': workspace:^0.0.1
       cypress: ^12.5.1
@@ -36,7 +34,6 @@ importers:
       histoire: ^0.14.2
       jsdom: ^20.0.0
       lodash: ^4.17.21
-      lodash-es: ^4.17.21
       npm-run-all: ^4.1.5
       prettier: ^2.5.1
       sass: ^1.50.0
@@ -52,11 +49,9 @@ importers:
       '@vxin/colors': link:packages/colors
       '@vxin/hooks': link:packages/hooks
       '@vxin/icons': link:packages/icons
-      '@vxin/theme': link:packages/theme
       '@vxin/ui': link:packages/ui
       '@vxin/utils': link:packages/utils
       lodash: 4.17.21
-      lodash-es: 4.17.21
     devDependencies:
       '@histoire/plugin-vue': 0.14.2_x6u2hfbmrv655g3s6ucvbdrzdi
       '@pnpm/find-workspace-dir': 5.0.1
@@ -66,7 +61,6 @@ importers:
       '@types/fs-extra': 9.0.13
       '@types/jsdom': 16.2.15
       '@types/lodash': 4.14.191
-      '@types/lodash-es': 4.17.6
       '@types/node': 16.18.12
       '@vitejs/plugin-vue': 4.0.0_vite@4.1.1+vue@3.2.47
       '@vitejs/plugin-vue-jsx': 3.0.0_vite@4.1.1+vue@3.2.47
@@ -2360,12 +2354,6 @@ packages:
 
   /@types/linkify-it/3.0.2:
     resolution: {integrity: sha512-HZQYqbiFVWufzCwexrvh694SOim8z2d+xJl5UNamcvQFejLY/2YUtzXHYi3cHdI7PMlS8ejH2slRAOJQ32aNbA==}
-    dev: true
-
-  /@types/lodash-es/4.17.6:
-    resolution: {integrity: sha512-R+zTeVUKDdfoRxpAryaQNRKk3105Rrgx2CFRClIgRGaqDTdjsm8h6IYA8ir584W3ePzkZfst5xIgDwYrlh9HLg==}
-    dependencies:
-      '@types/lodash': 4.14.191
     dev: true
 
   /@types/lodash/4.14.191:
@@ -5955,10 +5943,6 @@ packages:
     dependencies:
       p-locate: 5.0.0
     dev: true
-
-  /lodash-es/4.17.21:
-    resolution: {integrity: sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==}
-    dev: false
 
   /lodash.merge/4.6.2:
     resolution: {integrity: sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==}

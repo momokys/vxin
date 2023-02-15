@@ -14,7 +14,6 @@ import { Position, useDrag, useEventListener, useNamespace } from "@vxin/hooks";
 import { ZButton } from '@/button'
 import { modalProps } from './props'
 import { Close, FullScreen, Minus } from '@vxin/icons'
-import '@vxin/theme/modal.scss'
 
 export default defineComponent({
   name: 'ZModal',

@@ -42,7 +42,7 @@
 <script setup lang="ts">
 import { reactive } from 'vue'
 import { logEvent } from 'histoire/client'
-import { ZButton } from '@vxin/ui'
+import { ZButton } from '..'
 import { HstText, HstSelect, HstCheckbox } from '@histoire/controls'
 
 const state = reactive<Record<string, any>>({

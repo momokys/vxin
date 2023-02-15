@@ -1,9 +1,10 @@
-import Space from './src/space'
+import Space from './space'
 import { withInstall } from '@vxin/utils'
+import '@/_style/space.scss'
 
 export const ZSpace = withInstall(Space)
-export type { SpaceProps } from './src/props'
-export { spaceProps } from './src/props'
+export type { SpaceProps } from './props'
+export { spaceProps } from './props'
 export default ZSpace
 
 declare module '@vue/runtime-core' {

@@ -1,7 +1,6 @@
 import { computed, defineComponent, ref, Transition } from 'vue'
 import { useDrag, useEventListener, useNamespace, useResizeObserver } from '@vxin/hooks'
 import { scrollbarProps } from './props'
-import '@vxin/theme/scrollbar.scss'
 import { addunit } from '@vxin/utils'
 import { isUndefined } from 'lodash'
 
