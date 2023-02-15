@@ -1,0 +1,14 @@
+@use "common/mixins" as *;
+
+@include b(icon) {
+  height: 1em;
+  width: 1em;
+  line-height: 1em;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  color: inherit;
+  fill: currentColor;
+  font-size: inherit;
+}

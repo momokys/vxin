@@ -1,0 +1,24 @@
+@use "common/mixins" as *;
+@use "common/var" as *;
+
+:root {
+  @include map-css-var(color, $colors);
+  @include map-css-var(size, $sizes);
+  @include map-css-var(padding, $paddings);
+  @include map-css-var(font-size, $fontSizes);
+
+  @include set-css-var(bezier, $bezier);
+  @include set-css-var(bezier-ease-out, $bezierEaseOut);
+
+  @include set-css-var(disabled-opacity, $disabledOpacity);
+
+  @include set-css-var(border-radius, $borderRadius);
+
+  @include set-css-var(z-index, $zIndex);
+
+  @include map-css-var(button, $button);
+}
+
+body {
+  font-family: v-sans, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}

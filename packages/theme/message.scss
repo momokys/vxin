@@ -1,0 +1,45 @@
+@use "sass:map";
+@use "sass:math";
+@use "common/config" as *;
+@use "common/var" as *;
+@use "common/fun" as *;
+@use "common/mixins" as *;
+
+@include b(message) {
+  display: inline-flex;
+  align-items: center;
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px 20px;
+  border-radius: cssVar(border, radius);
+  background-color: #ffffff;
+  box-shadow: 0 3px 6px -4px rgba(0, 0, 0, 0.12),
+              0 6px 16px 0 rgba(0, 0, 0, 0.08),
+              0 9px 28px 8px rgba(0, 0, 0, 0.05);
+
+  p {
+    margin: 0 0 0 10px;
+    font-size: 14px;
+  }
+
+  @each $type in (success, error, warning, info) {
+    @include m($type) {
+      i {
+        color: cssVar(color, $type);
+      }
+    }
+  }
+
+  &-enter-from,
+  &-leave-to{
+    opacity: 0;
+  }
+  &-enter-active,
+  &-leave-active{
+    transition: opacity .3s cssVar(bezier);
+  }
+}
+
+

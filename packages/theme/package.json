@@ -1,0 +1,11 @@
+{
+  "name": "@vxin/theme",
+  "version": "0.0.1",
+  "description": "",
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "files": [
+    "*.scss"
+  ]
+}

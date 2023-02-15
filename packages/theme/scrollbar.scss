@@ -1,0 +1,78 @@
+@use "sass:map";
+@use "sass:math";
+@use "common/config" as *;
+@use "common/var" as *;
+@use "common/fun" as *;
+@use "common/mixins" as *;
+
+@include b(scrollbar) {
+  @include set-css-var(scrollbar-height, 100%);
+  @include css-var-from-global(scrollbar, bezier);
+}
+
+@include b(scrollbar) {
+  overflow: hidden;
+  position: relative;
+
+  @include e(view) {
+    width: 100%;
+    overflow: auto;
+    // IE10+
+    -ms-overflow-style: none;
+    // Chrome Safari
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  @include e(track) {
+    position: absolute;
+    z-index: 1;
+    border-radius: 3px;
+
+    @include e(thumb) {
+      position: relative;
+      border-radius: 3px;
+      background-color: #909399;
+      opacity: .3;
+      cursor: pointer;
+      -webkit-user-select: none;
+      transition: opacity .3s cssVar(scrollbar, bezier);
+
+      &:hover {
+        opacity: .5;
+      }
+    }
+
+    @include is(vertical) {
+      top: cssVar(scrollbar, gap);
+      bottom: calc(#{cssVar(scrollbar, gap)} + #{cssVar(scrollbar, thumb, width)});
+      right: cssVar(scrollbar, gap);
+      width: cssVar(scrollbar, thumb, width);
+
+      @include e(thumb) {
+        width: 100%;
+      }
+    }
+
+    @include is(horizontal) {
+      left: cssVar(scrollbar, gap);
+      right: calc(#{cssVar(scrollbar, gap)} + #{cssVar(scrollbar, thumb, width)});
+      bottom: cssVar(scrollbar, gap);
+      height: cssVar(scrollbar, thumb, width);
+
+      @include e(thumb) {
+        height: 100%;
+      }
+    }
+  }
+
+  &-fade-enter-from,
+  &-fade-leave-to{
+    opacity: 0;
+  }
+  &-fade-enter-active,
+  &-fade-leave-active{
+    transition: opacity .5s cssVar(scrollbar, bezier);
+  }
+}

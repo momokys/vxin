@@ -1,0 +1,27 @@
+{
+  "name": "@vxin/icons",
+  "version": "0.0.1",
+  "author": "momoky",
+  "license": "MIT",
+  "main": "./dist/lib/index.js",
+  "module": "./dist/es/index.js",
+  "types": "./dist/types/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "require": "./dist/lib/index.js",
+      "import": "./dist/es/index.js"
+    },
+    "./*": "./*"
+  },
+  "unpkg": "dist/index.iife.min.js",
+  "jsdelivr": "dist/index.iife.min.js",
+  "scripts": {
+    "build": "run-s build:generate build:lib build:types",
+    "build:lib": "tsx build/build.ts",
+    "build:generate": "tsx build/generate.ts",
+    "build:types": "vue-tsc --declaration --emitDeclarationOnly"
+  }
+}

@@ -1,0 +1,142 @@
+@use "sass:map";
+@use "sass:math";
+@use "common/config" as *;
+@use "common/var" as *;
+@use "common/fun" as *;
+@use "common/mixins" as *;
+
+@include b(button) {
+  position: relative;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 1;
+  outline: none;
+  border: 1px solid cssVar(button, border, color);
+  border-radius: cssVar(border, radius);
+  font-weight: cssVar(button, font-weight);
+  color: cssVar(button, color);
+  background-color: cssVar(button, bg, color);
+  white-space: nowrap;
+  transition: all .3s cssVar(bezier);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+
+  & + & {
+    margin: cssVar(button, margin);
+  }
+
+  &:hover,
+  &:focus,
+  &:active {
+    color: cssVar(color, primary);
+    border-color: cssVar(color, primary);
+  }
+
+  @include is(disabled) {
+    border: 1px solid cssVar(button, border, color);
+    color: cssVar(button, color);
+    opacity: cssVar(disabled, opacity);
+    cursor: not-allowed;
+  }
+
+  @each $type in (primary, success, warning, danger, info) {
+    @include m($type) {
+      color: #ffffff;
+      &:not(.is-text) {
+        border-color: cssVar(color, $type);
+        background-color: cssVar(color, $type);
+      }
+
+      &:hover:not(.is-disabled) {
+        $hoverColor: mix(
+            #ffffff,
+            map.get($colors, $type),
+            math.percentage(math.div(2, 10))
+        );
+        border-color: $hoverColor;
+        background-color: $hoverColor;
+      }
+
+      &:active:not(.is-disabled) {
+        $hoverColor: mix(
+            #000000,
+            map.get($colors, $type),
+            math.percentage(math.div(2, 10))
+        );
+        border-color: $hoverColor;
+        background-color: $hoverColor;
+      }
+
+      @include is(text) {
+        color: cssVar(color, $type);
+      }
+    }
+  }
+
+  @each $size in (large, medium, small, mini) {
+    @include m($size) {
+      height: cssVar(size, $size);
+      padding: 0 cssVar(padding, $size);
+      @if($size == mini) {
+        font-size: cssVar(font-size, mini);
+      } @else if($size == large) {
+        font-size: cssVar(font-size, large);
+      } @else {
+        font-size: cssVar(font-size, small);
+      }
+      @include is(round) {
+        border-radius: cssVar(size, $size);
+      }
+      @include is(circle) {
+        width: cssVar(size, $size);
+        padding: 0;
+        border-radius: 50%;
+      }
+    }
+  }
+
+  @include is(text) {
+    border-color: transparent;
+    background-color: cssVar(button, text, bg, color, color);
+    &:hover {
+      border-color: transparent;
+      background-color: cssVar(button, text, bg, color, hover);
+    }
+
+    &:active {
+      border-color: transparent;
+      background-color: cssVar(button, text, bg, color, active);
+    }
+  }
+
+  @include is(loading) {
+    cursor: wait;
+    @include e(icon) {
+      animation: rotating 2s linear infinite;
+    }
+  }
+
+  @include m(icon-left) {
+    flex-direction: row;
+    @include e(label) {
+      margin-left: cssVar(button, icon, margin);
+    }
+  }
+
+  @include m(icon-right) {
+    flex-direction: row-reverse;
+    @include e(label) {
+      margin-right: cssVar(button, icon, margin);
+    }
+  }
+}
+
+@keyframes rotating {
+  0% {
+    transform: rotateZ(0deg);
+  }
+  100% {
+    transform: rotateZ(360deg);
+  }
+}

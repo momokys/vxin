@@ -1,0 +1,38 @@
+@use "sass:map";
+@use "common/var" as *;
+@use "common/fun" as *;
+@use "common/mixins" as *;
+
+@include b(wave) {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  border-radius: inherit;
+  animation-iteration-count: 1;
+  animation-duration: .6s;
+  animation-timing-function: cssVar(bezier-ease-out), cssVar(bezier-ease-out);
+  pointer-events: none;
+
+  @include is(active) {
+    z-index: 1;
+    animation-name: wave-effect, fade-effect;
+  }
+  @keyframes wave-effect {
+    0% {
+      box-shadow: 0 0 0.5px 0 cssVar(wave, color);
+    }
+    100% {
+      box-shadow: 0 0 0.5px 5.5px cssVar(wave, color);
+    }
+  }
+  @keyframes fade-effect {
+    0% {
+      opacity: .7;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+}

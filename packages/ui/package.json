@@ -1,0 +1,11 @@
+{
+  "name": "@vxin/ui",
+  "version": "0.0.1",
+  "author": "momoky",
+  "license": "MIT",
+  "main": "./src/index.ts",
+  "module": "./src/index.ts",
+  "scripts": {
+    "story:dev": "histoire dev"
+  }
+}

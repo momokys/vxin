@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  "references": [
+    {
+      "path": "tsconfig.ui.json"
+    },
+    {
+      "path": "tsconfig.story.json"
+    },
+    {
+      "path": "tsconfig.vite.json"
+    }
+  ]
+}

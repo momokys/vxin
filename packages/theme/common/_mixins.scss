@@ -1,0 +1,74 @@
+@use "config" as *;
+@use "var" as *;
+@use "fun" as *;
+
+// BEM
+
+$B: '';
+
+@mixin b($block, $suffix: '') {
+  $B: $namespace + '-' + $block !global;
+
+  @if ($suffix == '') {
+    .#{$B} {
+      @content;
+    }
+  } @else {
+    .#{$B + '-' + $suffix} {
+      @content;
+    }
+  }
+}
+
+@mixin e($element) {
+  $E: $B + $element-separator + $element !global;
+
+  @at-root {
+    & {
+      .#{$E} {
+        @content;
+      }
+    }
+  }
+}
+
+@mixin m($modifier) {
+  @at-root {
+    &.#{$B + $modifier-separator + $modifier} {
+      @content;
+    }
+  }
+}
+
+@mixin is($state) {
+  @at-root {
+    &.#{$state-prefix + $state} {
+      @content;
+    }
+  }
+}
+
+@mixin set-css-var($name, $value) {
+  #{cssVarName($name)}: $value;
+}
+
+@mixin map-css-var($name, $variables) {
+  @each $attribute, $value in $variables {
+    #{cssVarName($name, $attribute)}: $value;
+  }
+}
+
+@mixin css-var-from-global($name, $gVar) {
+  $varName: cssVarName($name, $gVar);
+  $gVarName: cssVarName($gVar);
+  #{$varName}: var(#{$gVarName});
+}
+
+@mixin css-var-map-global($name, $gVar) {
+  $vars: map-get($global, $gVar);
+  @each $attribute, $value in $vars {
+    $varName: cssVarName($name, $gVar, $attribute);
+    $gVarName: cssVarName($gVar, $attribute);
+    #{$varName}: var(#{$gVarName});
+  }
+}

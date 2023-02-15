@@ -1,0 +1,8 @@
+{
+  "name": "@vxin/colors",
+  "version": "0.0.1",
+  "author": "momoky",
+  "license": "MIT",
+  "main": "index.ts",
+  "module": "index.ts"
+}

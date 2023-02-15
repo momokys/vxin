@@ -1,0 +1,15 @@
+@use 'config';
+
+@function cssVarName($names...) {
+  $name: '--' + config.$namespace;
+  @each $item in $names {
+    @if $item {
+      $name: $name + '-' + $item;
+    }
+  }
+  @return $name;
+}
+
+@function cssVar($names...) {
+  @return var(#{cssVarName($names...)});
+}

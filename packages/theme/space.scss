@@ -1,0 +1,52 @@
+@use "sass:map";
+@use "sass:math";
+@use "common/config" as *;
+@use "common/var" as *;
+@use "common/fun" as *;
+@use "common/mixins" as *;
+
+@include b(space) {
+  display: flex;
+  gap: cssVar(space, gap);
+
+  &>:not([hidden]) {
+    flex-shrink: 0;
+  }
+
+  @include is(inline) {
+    display: inline-flex;
+  }
+
+  @include is(wrap) {
+    flex-wrap: wrap;
+  }
+
+  @include m(horizontal) {
+    flex-direction: row;
+    @include is(reverse) {
+      flex-direction: row-reverse;
+    }
+  }
+  @include m(vertical) {
+    flex-direction: column;
+    @include is(reverse) {
+      flex-direction: column-reverse;
+    }
+  }
+
+  @each $align in (start, end, center, baseline, stretch) {
+    @include m('items-' + $align) {
+      align-items: #{$align};
+    }
+  }
+
+  @each $justify in (start, end, center, space-around, space-between, space-evenly) {
+    @include m('justify-' + $justify) {
+      justify-content: #{$justify};
+    }
+  }
+
+  @include e(item) {
+    max-width: 100%;
+  }
+}
