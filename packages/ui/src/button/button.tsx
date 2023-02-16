@@ -1,6 +1,6 @@
-import { defineComponent, ref } from 'vue'
+import {computed, defineComponent, ref} from 'vue'
 import { useNamespace } from '@/_hooks'
-import { VIcon, VWave } from '..'
+import { VIcon } from '..'
 import { buttonProps } from './props'
 
 const defaultLoadingIcon = (
@@ -18,43 +18,36 @@ export default defineComponent({
   emits: ['click'],
   setup(props, { emit, slots }) {
     const ns = useNamespace('button')
-    const btnRef = ref<HTMLButtonElement>()
-    const waveRef = ref<InstanceType<typeof VWave>>()
+    const disabled = computed(() => props.disabled || props.loading)
+    const icon = computed(() => props.loading ? (props.loadingIcon ?? defaultLoadingIcon) : props.icon)
+    const renderLabel = () => <span class={ ns.e('label') }>{ slots.default?.() ?? props.label }</span>
+    const renderIcon = () => {
+      return icon.value ? <VIcon class={ns.e('icon')} icon={icon.value} /> : []
+    }
     const handleClick = (ev: MouseEvent) => {
-      if (props.disabled || props.loading) return
-      waveRef.value?.play(getComputedStyle(btnRef.value!).borderColor)
+      if (disabled.value) return
       emit('click', ev)
     }
-    const renderIcon = () => {
-      const _icon_normal = slots.icon?.() ?? props.icon
-      const _icon: any = !props.loading ? _icon_normal : props.loadingIcon ?? defaultLoadingIcon
-      return _icon ? <VIcon class={ns.e('icon')} icon={_icon} /> : []
-    }
-    const renderLabel = () => {
-      const _label_normal = slots.default?.() ?? props.label
-      const _label = !props.loading ? _label_normal : props.loadingLabel ?? _label_normal
-      return _label && !props.circle ? <span class={ns.e('label')}>{_label}</span> : []
-    }
+
     return () => (
       <button
-        ref={btnRef}
         class={[
           ns.b(),
           ns.m(props.type),
+          ns.m(props.status),
           ns.m(props.size),
-          ns.m(props.icon || props.loading ? `icon-${props.iconPlacement}` : ''),
-          ns.is('text', props.text),
-          ns.is('disabled', props.disabled || props.loading),
+          ns.m(icon.value ? `icon-${props.iconPlacement}` : ''),
+          ns.is('block', props.block),
           ns.is('round', props.round),
           ns.is('circle', props.circle),
           ns.is('loading', props.loading),
+          ns.is('disabled', disabled.value),
         ]}
-        disabled={props.disabled || props.loading}
+        disabled={disabled.value}
         onClick={handleClick}
       >
-        {renderIcon()}
-        {renderLabel()}
-        <VWave ref={waveRef} />
+        { renderIcon() }
+        { renderLabel() }
       </button>
     )
   },

@@ -1,9 +1,9 @@
 import {isReactive, provide, watchEffect} from 'vue'
 import { generate } from '@vxin/colors'
 import DEFAULT_THEME from '@/_config/theme'
-import { THEME_KEY } from '@/_tokens'
+// import { THEME_KEY } from '@/_tokens'
 
-const STATUS_COLORS = ['primary', 'success', 'warning', 'danger', 'error'] as const
+const STATUS_COLORS = ['primary', 'success', 'warning', 'danger', 'error', 'info'] as const
 
 type ColorKey = typeof STATUS_COLORS[number]
 
@@ -20,7 +20,7 @@ export function useTheme(theme: ThemeConfig = DEFAULT_THEME) {
     genCssVars(theme)
   }
 
-  provide(THEME_KEY, theme)
+  // provide(THEME_KEY, theme)
 }
 
 const genCssVars = (theme: ThemeConfig) => {

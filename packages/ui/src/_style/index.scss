@@ -21,7 +21,6 @@
 
   @include set-css-var(z-index, $zIndex);
 
-  @include map-css-var(button, $button);
 }
 
 body {

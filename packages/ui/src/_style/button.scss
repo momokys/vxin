@@ -5,6 +5,10 @@
 @use "common/fun" as *;
 @use "common/mixins" as *;
 
+:root {
+  @include map-css-var(button, $button);
+}
+
 @include b(button) {
   position: relative;
   display: inline-flex;
@@ -12,11 +16,11 @@
   align-items: center;
   line-height: 1;
   outline: none;
-  border: 1px solid cssVar(button, border, color);
+  border: 1px solid transparent;
   border-radius: cssVar(border, radius);
   font-weight: cssVar(button, font-weight);
-  color: cssVar(button, color);
-  background-color: cssVar(button, bg, color);
+  color: cssVar(button, default-color);
+  background-color: cssVar(button, default-bg-color);
   white-space: nowrap;
   transition: all .3s cssVar(bezier);
   cursor: pointer;
@@ -27,49 +31,76 @@
   }
 
   &:hover,
-  &:focus,
+  &:focus {
+    background-color: cssVar(button, default-hover-bg-color);
+  }
+
   &:active {
-    color: cssVar(color, primary);
-    border-color: cssVar(color, primary);
+    background-color: cssVar(button, default-active-bg-color);
   }
 
   @include is(disabled) {
-    border: 1px solid cssVar(button, border, color);
-    color: cssVar(button, color);
     opacity: cssVar(disabled, opacity);
     cursor: not-allowed;
+    background-color: cssVar(button, default-bg-color);
   }
 
-  @each $type in (primary, success, warning, danger, info) {
-    @include m($type) {
-      color: #ffffff;
-      &:not(.is-text) {
-        border-color: cssVar(color, $type);
-        background-color: cssVar(color, $type);
-      }
+  @each $status in (primary, success, warning, danger, error, info) {
+    @include m(default) {
+      @include m($status) {
+        color: #ffffff;
+        border-color: cssVar(color, $status);
+        background-color: cssVar(color, $status);
 
-      &:hover:not(.is-disabled) {
-        $hoverColor: mix(
-            #ffffff,
-            map.get($colors, $type),
-            math.percentage(math.div(2, 10))
-        );
-        border-color: $hoverColor;
-        background-color: $hoverColor;
-      }
+        &:hover:not(.is-disabled) {
+          $hoverColor: cssVar(color, $status, 4);
+          border-color: $hoverColor;
+          background-color: $hoverColor;
+        }
 
-      &:active:not(.is-disabled) {
-        $hoverColor: mix(
-            #000000,
-            map.get($colors, $type),
-            math.percentage(math.div(2, 10))
-        );
-        border-color: $hoverColor;
-        background-color: $hoverColor;
+        &:active:not(.is-disabled) {
+          $hoverColor: cssVar(color, $status, 6);
+          border-color: $hoverColor;
+          background-color: $hoverColor;
+        }
       }
+    }
 
-      @include is(text) {
-        color: cssVar(color, $type);
+    @include m(text) {
+      @include m($status) {
+        color: cssVar(color, $status);
+        background-color: cssVar(color, $status, 0);
+
+        &:hover:not(.is-disabled) {
+          $hoverColor: cssVar(color, $status, 1);
+          border-color: $hoverColor;
+          background-color: $hoverColor;
+        }
+      }
+    }
+
+    @include m(link) {
+      @include m($status) {
+        color: cssVar(color, $status);
+        border-color: transparent;
+        background-color: transparent;
+
+        &:hover:not(.is-disabled),
+        &:focus:not(.is-disabled) {
+          text-decoration: underline;
+        }
+      }
+    }
+
+    @include m(outline) {
+      @include m($status) {
+        color: cssVar(color, $status);
+        border-color: currentColor;
+
+        &:hover:not(.is-disabled),
+        &:focus:not(.is-disabled), {
+          background-color: cssVar(color, $status, 0);
+        }
       }
     }
   }
@@ -96,25 +127,16 @@
     }
   }
 
-  @include is(text) {
-    border-color: transparent;
-    background-color: cssVar(button, text, bg, color, color);
-    &:hover {
-      border-color: transparent;
-      background-color: cssVar(button, text, bg, color, hover);
-    }
-
-    &:active {
-      border-color: transparent;
-      background-color: cssVar(button, text, bg, color, active);
-    }
-  }
-
   @include is(loading) {
     cursor: wait;
     @include e(icon) {
       animation: rotating 2s linear infinite;
     }
+  }
+
+  @include is(block) {
+    display: block;
+    width: 100%;
   }
 
   @include m(icon-left) {
