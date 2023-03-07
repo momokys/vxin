@@ -2,6 +2,7 @@
   "version": "0.0.1",
   "author": "momoky",
   "license": "MIT",
+  "private": true,
   "scripts": {
     "test:ct": "cypress open --component",
     "story:dev": "pnpm -F @vxin/ui run story:dev",
