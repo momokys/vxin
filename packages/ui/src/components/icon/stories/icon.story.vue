@@ -14,6 +14,7 @@
 <script setup lang="ts">
 import { reactive } from 'vue'
 import { VIcon } from '@/components'
+// import { Search } from '@vxin/icons'
 import { HstNumber, HstText } from '@histoire/controls'
 
 const state = reactive<Record<string, any>>({
