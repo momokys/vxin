@@ -1,0 +1,7 @@
+{
+  "name": "@vxin/plugins",
+  "version": "0.0.1",
+  "main": "index.ts",
+  "author": "momoky",
+  "license": "MIT"
+}
