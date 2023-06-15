@@ -1,16 +1,15 @@
 {
   "compilerOptions": {
+    "composite": true,
     "target": "ESNext",
     "module": "ESNext",
-    "lib": ["ESNext", "DOM", "DOM.Iterable"],
+    "lib": ["ESNext"],
     "moduleResolution": "Node",
     "esModuleInterop": true,
     "resolveJsonModule": true,
-    "sourceMap": true,
-    "declaration": true,
     "strict": true,
     "skipLibCheck": true,
-    "isolatedModules": true
+    "types": ["node", "vite/client"]
   },
-  "include": ["**/*.ts"]
+  "include": ["vite.config.ts"]
 }
