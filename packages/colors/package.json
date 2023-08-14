@@ -3,6 +3,9 @@
   "version": "0.0.1",
   "author": "momoky",
   "license": "MIT",
-  "main": "index.ts",
-  "module": "index.ts"
+  "main": "src/index.ts",
+  "module": "src/index.ts",
+  "dependencies": {
+    "@ctrl/tinycolor": "^3.5.0"
+  }
 }

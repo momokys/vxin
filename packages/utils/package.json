@@ -1,7 +1,13 @@
 {
   "name": "@vxin/utils",
   "version": "0.0.1",
-  "main": "index.ts",
+  "main": "src/index.ts",
   "author": "momoky",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "@vxin/fns": "workspace:^0.0.1"
+  },
+  "devDependencies": {
+    "vue": "^3.2.47"
+  }
 }

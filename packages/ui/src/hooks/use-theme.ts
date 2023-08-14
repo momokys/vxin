@@ -1,5 +1,5 @@
 import {isReactive, provide, watchEffect} from 'vue'
-import { generate } from '@vxin/colors'
+import { generate } from '../colors'
 import DEFAULT_THEME from '@/config/theme'
 // import { THEME_KEY } from '@/_tokens'
 

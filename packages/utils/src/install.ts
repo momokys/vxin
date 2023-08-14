@@ -10,12 +10,13 @@ export const withInstall = <T extends Record<string, any>>(sfc: T, installFn?: (
   return sfc as SFCInstall<T>
 }
 
-export type FnInstallWithContext<T> = T & Plugin & {
-  _context: AppContext | null
-}
+export type FnInstallWithContext<T> = T &
+  Plugin & {
+    _context: AppContext | null
+  }
 
 export const withInstallFn = <T>(fn: T, name: string) => {
-  ;(fn as SFCInstall<T>).install = app => {
+  ;(fn as SFCInstall<T>).install = (app) => {
     ;(fn as unknown as App)._context = app._context
     app.config.globalProperties[name] = fn
   }
