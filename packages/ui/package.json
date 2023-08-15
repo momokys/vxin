@@ -12,11 +12,14 @@
     "vue": "^3.2.47"
   },
   "dependencies": {
-
+    "@vxin/colors": "workspace:^0.0.1",
+    "@vxin/hooks": "workspace:^0.0.1",
+    "@vxin/icons": "workspace:^0.0.1",
+    "@vxin/utils": "workspace:^0.0.1"
   },
   "devDependencies": {
-    "@histoire/plugin-vue": "0.16.0",
-    "histoire": "^0.15.8",
-    "vue": "^3.2.47"
+    "@histoire/plugin-vue": "^0.16.4",
+    "histoire": "^0.16.4",
+    "vue": "3.2.47"
   }
 }

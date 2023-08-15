@@ -5,7 +5,7 @@
 @use "common/fun" as *;
 @use "common/mixins" as *;
 
-:root {
+@include b(button) {
   @include map-css-var(button, $button);
 }
 

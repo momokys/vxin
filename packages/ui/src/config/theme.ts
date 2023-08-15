@@ -7,5 +7,5 @@ export default {
     danger: '#f44336',
     error: '#f56c6c',
     info: '#607d9b',
-  }
+  },
 } as ThemeConfig

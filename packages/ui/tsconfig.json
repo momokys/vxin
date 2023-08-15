@@ -1,19 +1,24 @@
 {
+  "extends": "@vxin/tsconfig/tsconfig.web.json",
   "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "sourceMap": true,
+    "declaration": true,
+    "types": ["node", "vite/client"],
     "baseUrl": "./",
     "paths": {
       "@/*": ["./src/*"]
     }
   },
-  "references": [
-    {
-      "path": "tsconfig.ui.json"
-    },
-    {
-      "path": "tsconfig.story.json"
-    },
-    {
-      "path": "tsconfig.vite.json"
-    }
+  "include": [
+    "src/**/*.vue",
+    "src/**/*.tsx",
+    "src/**/*.ts",
+    "env.d.ts",
+    "histoire.setup.ts",
+    "histoire.config.ts",
+    "vite.config.ts"
   ]
 }

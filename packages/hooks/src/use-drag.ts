@@ -1,5 +1,5 @@
 import { isRef, reactive, Ref } from 'vue'
-import { isUndefined } from 'lodash'
+import { isUndefined } from '@vxin/utils'
 
 export interface Position {
   x: number

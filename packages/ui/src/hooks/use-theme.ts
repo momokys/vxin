@@ -1,5 +1,5 @@
-import {isReactive, provide, watchEffect} from 'vue'
-import { generate } from '../colors'
+import { isReactive, watchEffect } from 'vue'
+import { generate } from '@vxin/colors'
 import DEFAULT_THEME from '@/config/theme'
 // import { THEME_KEY } from '@/_tokens'
 
@@ -24,7 +24,7 @@ export function useTheme(theme: ThemeConfig = DEFAULT_THEME) {
 }
 
 const genCssVars = (theme: ThemeConfig) => {
-  let cssVars: string[] = []
+  const cssVars: string[] = []
   STATUS_COLORS.forEach((key) => {
     const baseColor = theme.colors[key]
     if (baseColor) {

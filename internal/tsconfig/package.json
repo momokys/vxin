@@ -1,0 +1,6 @@
+{
+  "name": "@vxin/tsconfig",
+  "version": "0.0.1",
+  "main": "tsconfig.web.json",
+  "license": "MIT"
+}

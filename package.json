@@ -8,14 +8,8 @@
     "story:dev": "pnpm -F @vxin/ui run story:dev",
     "build:icons": "pnpm -F @vxin/icons run build",
     "publish:icons": "pnpm -F @vxin/icons run publish",
-    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore"
-  },
-  "dependencies": {
-    "@vxin/colors": "workspace:^0.0.1",
-    "@vxin/hooks": "workspace:^0.0.1",
-    "@vxin/icons": "workspace:^0.0.1",
-    "@vxin/ui": "workspace:^0.0.1",
-    "@vxin/utils": "workspace:^0.0.1"
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
+    "gc": "cd scripts && gc.sh"
   },
   "devDependencies": {
     "@pnpm/find-workspace-dir": "^5.0.1",
@@ -30,7 +24,7 @@
     "@vue/eslint-config-prettier": "^7.0.0",
     "@vue/eslint-config-typescript": "^11.0.0",
     "@vue/test-utils": "^2.2.6",
-    "@vue/tsconfig": "^0.1.3",
+    "@vxin/tsconfig": "workspace:^0.0.1",
     "eslint": "^8.5.0",
     "eslint-plugin-vue": "^9.0.0",
     "fast-glob": "^3.2.12",

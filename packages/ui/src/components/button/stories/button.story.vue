@@ -43,7 +43,6 @@
 import { reactive } from 'vue'
 import { logEvent } from 'histoire/client'
 import { VButton } from '@/components'
-import { HstText, HstSelect, HstCheckbox } from '@histoire/controls'
 
 const state = reactive<Record<string, any>>({
   label: '按钮',

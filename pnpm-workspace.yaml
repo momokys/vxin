@@ -1,3 +1,4 @@
 packages:
-  - 'packages/**'
-  - 'exmples/**'
+  - 'packages/*'
+  - 'internal/*'
+  - 'exmples/*'

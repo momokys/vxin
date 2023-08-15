@@ -1,5 +1,5 @@
 import { isRef, onBeforeUnmount, onMounted, Ref, ref } from 'vue'
-import { isUndefined } from 'lodash'
+import { isUndefined } from '@vxin/utils'
 
 export function useResizeObserver(
   target?: Ref<HTMLElement | undefined> | HTMLElement,

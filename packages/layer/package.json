@@ -1,7 +1,7 @@
 {
   "name": "@vxin/layer",
   "version": "0.0.1",
-  "main": "index.ts",
+  "main": "src/index.ts",
   "author": "momoky",
   "license": "MIT"
 }

@@ -19,8 +19,8 @@ export default defineComponent({
   setup(props, { emit, slots }) {
     const ns = useNamespace('button')
     const disabled = computed(() => props.disabled || props.loading)
-    const icon = computed(() => props.loading ? (props.loadingIcon ?? defaultLoadingIcon) : props.icon)
-    const renderLabel = () => <span class={ ns.e('label') }>{ slots.default?.() ?? props.label }</span>
+    const icon = computed(() => (props.loading ? props.loadingIcon ?? defaultLoadingIcon : props.icon))
+    const renderLabel = () => <span class={ns.e('label')}>{slots.default?.() ?? props.label}</span>
     const renderIcon = () => {
       return icon.value ? <VIcon class={ns.e('icon')} icon={icon.value} /> : []
     }
@@ -46,8 +46,8 @@ export default defineComponent({
         disabled={disabled.value}
         onClick={handleClick}
       >
-        { renderIcon() }
-        { renderLabel() }
+        {renderIcon()}
+        {renderLabel()}
       </button>
     )
   },

@@ -1,5 +1,5 @@
 import { isRef, onBeforeUnmount, onMounted, Ref, unref } from 'vue'
-import { isUndefined } from 'lodash'
+import { isUndefined } from '@vxin/utils'
 
 export type EventSource = (Window & typeof globalThis) | Document | Ref<HTMLElement | undefined> | HTMLElement
 export type EventMap<S extends EventSource> = S extends Window
