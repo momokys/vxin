@@ -24,16 +24,16 @@ export function useTheme(theme: ThemeConfig = DEFAULT_THEME) {
 }
 
 const genCssVars = (theme: ThemeConfig) => {
-  const cssVars: string[] = []
-  STATUS_COLORS.forEach((key) => {
+  const cssVars: string[] = STATUS_COLORS.reduce((res, key) => {
     const baseColor = theme.colors[key]
     if (baseColor) {
-      cssVars.push(`--v-color-${key}: ${baseColor}`)
+      res.push(`--v-color-${key}: ${baseColor}`)
       generate(baseColor).forEach((value, index) => {
-        cssVars.push(`--v-color-${key}-${index}: ${value}`)
+        res.push(`--v-color-${key}-${index}: ${value}`)
       })
     }
-  })
+    return res
+  }, [] as string[])
   const styleContent = cssVars.join(';')
   if (!styleEl) {
     styleEl = document.createElement('style')

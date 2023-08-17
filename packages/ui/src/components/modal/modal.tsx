@@ -6,10 +6,11 @@ import {
   nextTick,
   watchEffect,
   computed,
-  CSSProperties, watch
+  CSSProperties,
+  watch,
+  h,
 } from 'vue'
-import { isUndefined } from 'lodash'
-import { addunit } from '@vxin/utils'
+import { addunit, isUndefined } from '@vxin/utils'
 import { Position, useDrag, useEventListener } from '@vxin/hooks'
 import { Close, FullScreen, Minus } from '@vxin/icons'
 import { VButton } from '@/components'
@@ -49,14 +50,14 @@ export default defineComponent({
         },
         end: () => {
           dragging.value = false
-        }
-      }
+        },
+      },
     })
     const style = computed<CSSProperties>(() => ({
-      left: (fullscreen.value ? 0: p.x) + 'px',
+      left: (fullscreen.value ? 0 : p.x) + 'px',
       top: (fullscreen.value ? 0 : p.y) + 'px',
-      width: fullscreen.value ? '100%' : !isUndefined(props.width) ? addunit(props.width, 'px') : '50%',
-      height: fullscreen.value ? '100%' : !isUndefined(props.height) ? addunit(props.height, 'px') : '',
+      width: fullscreen.value ? '100%' : !isUndefined(props.width) ? addunit(props.width!, 'px') : '50%',
+      height: fullscreen.value ? '100%' : !isUndefined(props.height) ? addunit(props.height!, 'px') : '',
     }))
     const computeInterval = () => {
       const rect = elRef.value!.getBoundingClientRect()
@@ -79,7 +80,7 @@ export default defineComponent({
         p.y = 0
         fullscreen.value = props.fullscreen
       } else {
-
+        // TODO
       }
     }
     const close = async () => {
@@ -135,7 +136,7 @@ export default defineComponent({
         // p.x = p.x < min.x ? min.x : p.x > max.x ? max.x : p.x
         // p.y = p.y < min.y ? min.y : p.y > max.y ? max.y : p.y
       },
-      { deep: true }
+      { deep: true },
     )
 
     expose({
@@ -152,32 +153,29 @@ export default defineComponent({
           onAfterEnter={computeOrigin}
           onAfterLeave={cancelFullscreenEffect}
         >
-          <div
-            v-show={visible.value}
-            class={ns.b('wrap')}
-            style={{ zIndex: props.zIndex }}
-          >
+          <div v-show={visible.value} class={ns.b('wrap')} style={{ zIndex: props.zIndex }}>
             <div v-show={props.shade} class={ns.b('mask')} onClick={close} />
             <div
               ref={elRef}
-              class={[
-                ns.b(),
-                ns.is('fullscreen', fullscreen.value),
-                ns.is('dragging', dragging.value),
-              ]}
+              class={[ns.b(), ns.is('fullscreen', fullscreen.value), ns.is('dragging', dragging.value)]}
               style={style.value}
             >
               <div class={ns.e('header')} onMousedown={handleDrag}>
                 <div class={ns.e('title')}>{props.title ?? '标题'}</div>
                 <div class={ns.e('toolbar')}>
-                  <VButton icon={fullscreen.value ? Minus : FullScreen} size={'small'} text={true} onClick={toggleFullscreen} />
-                  <VButton icon={Close} size={'small'} text={true} onClick={close} />
+                  <VButton
+                    type={'text'}
+                    size={'small'}
+                    icon={fullscreen.value ? Minus : FullScreen}
+                    onClick={toggleFullscreen}
+                  />
+                  <VButton type={'text'} icon={Close} size={'small'} onClick={close} />
                 </div>
               </div>
               <div class={ns.e('body')}>{slots.default?.()}</div>
               <div class={ns.e('footer')}>
-                <VButton label={'取消'} type={'default'} />
-                <VButton label={'确定'} type={'primary'} />
+                <VButton label={'取消'} status={'default'} />
+                <VButton label={'确定'} status={'primary'} />
               </div>
             </div>
           </div>

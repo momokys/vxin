@@ -15,91 +15,155 @@
   justify-content: center;
   align-items: center;
   line-height: 1;
+  vertical-align: middle;
   outline: none;
   border: 1px solid transparent;
-  border-radius: cssVar(border, radius);
-  font-weight: cssVar(button, font-weight);
-  color: cssVar(button, default-color);
-  background-color: cssVar(button, default-bg-color);
+  border-radius: cssVar(border-radius);
+  color: cssVar(button-default-text-color);
+  background-color: cssVar(button-default-bg-color);
   white-space: nowrap;
   transition: all .3s cssVar(bezier);
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
 
-  & + & {
-    margin: cssVar(button, margin);
-  }
-
   &:hover,
   &:focus {
-    background-color: cssVar(button, default-hover-bg-color);
+    background-color: cssVar(button-default-hover-bg-color);
+  }
+  &:active {
+    background-color: cssVar(button-default-active-bg-color);
+  }
+  &>span {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+  }
+  &>i + span {
+    margin-left: cssVar(button-icon-margin);
+  }
+  &>span>i {
+    margin-left: cssVar(button-icon-margin);
   }
 
-  &:active {
-    background-color: cssVar(button, default-active-bg-color);
+  &~& {
+    margin: cssVar(button-margin);
+  }
+
+  @include m(outline) {
+    color: cssVar(color-primary-5);
+    border-color: cssVar(color-primary-5);
+    background-color: transparent;
+
+    &:hover:not(.is-disabled),
+    &:focus:not(.is-disabled) {
+      color: cssVar(color-primary-4);
+      border-color: cssVar(color-primary-4);
+      background-color: transparent;
+    }
+    &:active:not(.is-disabled) {
+      color: cssVar(color-primary-6);
+      border-color: cssVar(color-primary-6);
+      background-color: transparent;
+    }
+  }
+  @include m(text) {
+    color: cssVar(color-primary-5);
+    border-color: transparent;
+    background-color: transparent;
+    &:hover:not(.is-disabled),
+    &:focus:not(.is-disabled) {
+      color: cssVar(color-primary-3);
+    }
+    &:active:not(.is-disabled) {
+      color: cssVar(color-primary-6);
+    }
+  }
+  @include m(link) {
+    color: cssVar(color-primary-5);
+    border-color: transparent;
+    background-color: transparent;
+    &:hover:not(.is-disabled),
+    &:focus:not(.is-disabled) {
+      color: cssVar(color-primary-3);
+      text-decoration: underline;
+    }
+    &:active(.is-disabled) {
+      color: cssVar(color-primary-6);
+      text-decoration: underline;
+    }
   }
 
   @include is(disabled) {
-    opacity: cssVar(disabled, opacity);
+    opacity: cssVar(disabled-opacity);
     cursor: not-allowed;
-    background-color: cssVar(button, default-bg-color);
   }
 
-  @each $status in (primary, success, warning, danger, error, info) {
-    @include m(default) {
-      @include m($status) {
-        color: #ffffff;
-        border-color: cssVar(color, $status);
-        background-color: cssVar(color, $status);
-
-        &:hover:not(.is-disabled) {
-          $hoverColor: cssVar(color, $status, 4);
-          border-color: $hoverColor;
-          background-color: $hoverColor;
-        }
-
-        &:active:not(.is-disabled) {
-          $hoverColor: cssVar(color, $status, 6);
-          border-color: $hoverColor;
-          background-color: $hoverColor;
-        }
-      }
+  @include is(loading) {
+    cursor: wait;
+    &>i {
+      animation: rotating 2s linear infinite;
     }
+  }
 
-    @include m(text) {
-      @include m($status) {
-        color: cssVar(color, $status);
-        background-color: cssVar(color, $status, 0);
+  @each $status in (primary, success, warning, danger) {
+    @include m($status) {
+      color: #ffffff;
+      border-color: cssVar(color, $status, 5);
+      background-color: cssVar(color, $status, 5);
 
-        &:hover:not(.is-disabled) {
-          $hoverColor: cssVar(color, $status, 1);
-          border-color: $hoverColor;
-          background-color: $hoverColor;
-        }
+      &:hover:not(.is-disabled),
+      &:focus:not(.is-disabled) {
+        border-color: cssVar(color, $status, 4);
+        background-color: cssVar(color, $status, 4);
       }
-    }
+      &:active:not(.is-disabled) {
+        border-color: cssVar(color, $status, 6);
+        background-color: cssVar(color, $status, 6);
+      }
 
-    @include m(link) {
-      @include m($status) {
-        color: cssVar(color, $status);
-        border-color: transparent;
+      @include m(outline) {
+        color: cssVar(color, $status, 5);
         background-color: transparent;
 
         &:hover:not(.is-disabled),
         &:focus:not(.is-disabled) {
-          text-decoration: underline;
+          color: cssVar(color, $status, 3);
+          border-color: cssVar(color, $status, 3);
+          background-color: transparent;
+        }
+        &:active:not(.is-disabled) {
+          color: cssVar(color, $status, 6);
+          border-color: cssVar(color, $status, 6);
+          background-color: transparent;
         }
       }
-    }
 
-    @include m(outline) {
-      @include m($status) {
-        color: cssVar(color, $status);
-        border-color: currentColor;
-
+      @include m(text) {
+        color: cssVar(color, $status, 5);
+        border-color: transparent;
+        background-color: transparent;
         &:hover:not(.is-disabled),
-        &:focus:not(.is-disabled), {
-          background-color: cssVar(color, $status, 0);
+        &:focus:not(.is-disabled) {
+          color: cssVar(color, $status, 3);
+          border-color: transparent;
+          background-color: transparent;
+        }
+        &:active:not(.is-disabled) {
+          color: cssVar(color, $status, 6);
+          border-color: transparent;
+          background-color: transparent;
+        }
+      }
+
+      @include m(link) {
+        color: cssVar(color, $status, 5);
+        border-color: transparent;
+        background-color: transparent;
+        &:hover:not(.is-disabled),
+        &:focus:not(.is-disabled) {
+          text-decoration: underline;
+          border-color: transparent;
+          background-color: transparent;
         }
       }
     }
@@ -109,47 +173,17 @@
     @include m($size) {
       height: cssVar(size, $size);
       padding: 0 cssVar(padding, $size);
-      @if($size == mini) {
-        font-size: cssVar(font-size, mini);
-      } @else if($size == large) {
-        font-size: cssVar(font-size, large);
-      } @else {
-        font-size: cssVar(font-size, small);
-      }
-      @include is(round) {
+      font-size: cssVar(font-size, $size);
+
+      @include m(round) {
         border-radius: cssVar(size, $size);
       }
-      @include is(circle) {
-        width: cssVar(size, $size);
+
+      @include m(circle) {
         padding: 0;
+        width: cssVar(size, $size);
         border-radius: 50%;
       }
-    }
-  }
-
-  @include is(loading) {
-    cursor: wait;
-    @include e(icon) {
-      animation: rotating 2s linear infinite;
-    }
-  }
-
-  @include is(block) {
-    display: block;
-    width: 100%;
-  }
-
-  @include m(icon-left) {
-    flex-direction: row;
-    @include e(label) {
-      margin-left: cssVar(button, icon, margin);
-    }
-  }
-
-  @include m(icon-right) {
-    flex-direction: row-reverse;
-    @include e(label) {
-      margin-right: cssVar(button, icon, margin);
     }
   }
 }

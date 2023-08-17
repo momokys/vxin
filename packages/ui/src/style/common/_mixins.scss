@@ -1,6 +1,9 @@
+@use "sass:math";
+@use "sass:map";
 @use "config" as *;
 @use "var" as *;
 @use "fun" as *;
+
 
 // BEM
 
@@ -70,5 +73,25 @@ $B: '';
     $varName: cssVarName($name, $gVar, $attribute);
     $gVarName: cssVarName($gVar, $attribute);
     #{$varName}: var(#{$gVarName});
+  }
+}
+
+@mixin set-color-var() {
+  @each $type in $types {
+    @include set-css-var(color- + $type, map.get($colors, $type));
+    @each $level in (1, 2, 3, 4, 5) {
+      @include set-css-var(color- + $type + '-#{$level}', mix(
+          #ffffff,
+          map.get($colors, $type),
+          math.percentage(math.div(5 - $level, 5))
+      ));
+    }
+    @each $level in (6, 7, 8, 9) {
+      @include set-css-var(color- + $type + '-#{$level}', mix(
+          #000000,
+          map.get($colors, $type),
+          math.percentage(math.div($level - 5, 5))
+      ));
+    }
   }
 }

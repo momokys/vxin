@@ -7,7 +7,8 @@
 @forward "common/mixins";
 
 :root {
-  @include map-css-var(color, $colors);
+  @include set-color-var();
+
   @include map-css-var(size, $sizes);
   @include map-css-var(padding, $paddings);
   @include map-css-var(font-size, $fontSizes);
@@ -24,5 +25,6 @@
 }
 
 body {
-  font-family: v-sans, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-size: 14px;
+  font-family: Helvetica, Arial, PingFangSC-Regular, Hiragino Sans GB, Microsoft YaHei, Microsoft JhengHei, serif;
 }

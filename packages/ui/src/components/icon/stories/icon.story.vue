@@ -5,8 +5,8 @@
         <v-icon v-bind="state" />
       </template>
       <template #controls>
-        <HstNumber title="size" v-model="state.size" />
-        <HstText title="color" v-model="state.color" />
+        <HstSlider title="size" v-model="state.size" :step="1" :min="12" :max="100" />
+        <HstColorSelect title="color" v-model="state.color" />
       </template>
     </Variant>
   </Story>
@@ -14,10 +14,9 @@
 <script setup lang="ts">
 import { reactive } from 'vue'
 import { VIcon } from '@/components'
-// import { Search } from '@vxin/icons'
-import { HstNumber, HstText } from '@histoire/controls'
 
 const state = reactive<Record<string, any>>({
+  size: 12,
   icon: 'Search',
   color: '#3a7afe',
 })
