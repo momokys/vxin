@@ -1,29 +1,23 @@
 import { PropType, ExtractPropTypes, Component } from 'vue'
-import { ComponentSize } from '@vxin/utils'
+import { ComponentSize } from '@/utils'
 
-export type ButtonType = 'text' | 'link' | 'outline' | 'default' | ''
-export type ButtonStatus = 'primary' | 'success' | 'warning' | 'danger' | 'default' | ''
-export type ButtonShape = 'circle' | 'round' | 'default' | ''
-export const buttonProps = {
+export type BtnType = 'text' | 'link' | 'outline' | 'default' | ''
+export type BtnStatus = 'primary' | 'success' | 'warning' | 'danger' | 'default' | ''
+export type BtnShape = 'circle' | 'round' | 'default' | ''
+export const btnProps = {
   label: String,
   tag: {
     type: String,
     default: 'button',
   },
-  type: {
-    type: String as PropType<ButtonType>,
-    default: '',
-  },
+  type: String as PropType<BtnType>,
   shape: {
-    type: String as PropType<ButtonShape>,
+    type: String as PropType<BtnShape>,
     default: '',
   },
-  size: {
-    type: String as PropType<ComponentSize>,
-    default: 'medium',
-  },
+  size: String as PropType<ComponentSize>,
   status: {
-    type: String as PropType<ButtonStatus>,
+    type: String as PropType<BtnStatus>,
     default: 'primary',
   },
   color: String,
@@ -32,6 +26,10 @@ export const buttonProps = {
   loadingIcon: [String, Object] as PropType<string | Component>,
   disabled: Boolean,
   block: Boolean,
+  href: {
+    type: String,
+    default: '#',
+  },
 }
 
-export type ButtonProps = Partial<ExtractPropTypes<typeof buttonProps>>
+export type BtnProps = Partial<ExtractPropTypes<typeof btnProps>>

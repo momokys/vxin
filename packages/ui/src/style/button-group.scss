@@ -1,0 +1,50 @@
+@use "sass:map";
+@use "sass:math";
+@use "common/config" as *;
+@use "common/var" as *;
+@use "common/fun" as *;
+@use "common/mixins" as *;
+
+@include b(btn-group) {
+  @include b(btn) {
+    margin-left: 0;
+    margin-right: 0;
+
+    &:first-child {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+    &:last-child {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+    &:first-child:last-child {
+      border-radius: cssVar(border-radius);
+    }
+    &:not(:first-child):not(:last-child) {
+      border-radius: 0;
+    }
+
+    @each $status in (primary, success, warning, danger) {
+      @include m($status) {
+        border-left-color: transparent;
+        border-right-color: cssVar(color, $status, 3);
+        &:first-child {
+          border-left-color: cssVar(color, $status, 5);
+        }
+        &:last-child {
+          border-right-color: cssVar(color, $status, 5);
+        }
+        &:hover:not(.is-disabled),
+        &:focus:not(.is-disabled) {
+          border-left-color: transparent;
+          border-right-color: cssVar(color, $status, 3);
+        }
+        &:active:not(.is-disabled) {
+          border-left-color: transparent;
+          border-right-color: cssVar(color, $status, 3);
+        }
+      }
+    }
+  }
+}

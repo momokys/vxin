@@ -59,8 +59,8 @@ $borderRadius: 3px;
 
 $zIndex: 2000;
 
-$button: () !default;
-$button: map.deep-merge(
+$btn: () !default;
+$btn: map.deep-merge(
       (
         'default-text-color': #252b3a,
         'default-border-color': #252b3a,
@@ -70,7 +70,7 @@ $button: map.deep-merge(
         'margin': 8px 0 8px 12px,
         'icon-margin': 4px,
       ),
-    $button
+    $btn
 );
 
 $global: (
@@ -82,5 +82,5 @@ $global: (
   'disabled-opacity': $disabledOpacity,
   'border-radius': $borderRadius,
   'z-index': $zIndex,
-  'button': $button,
+  'btn': $btn,
 );

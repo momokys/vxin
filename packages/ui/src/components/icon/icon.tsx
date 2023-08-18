@@ -1,5 +1,5 @@
 import { computed, CSSProperties, defineComponent, h, resolveDynamicComponent } from 'vue'
-import { isNumber, isString, isUndefined } from 'lodash'
+import { isNumber, isString, isUndefined } from '@vxin/utils'
 import { useNamespace } from '@/hooks'
 import { iconProps } from './props'
 

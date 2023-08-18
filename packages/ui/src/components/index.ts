@@ -1,4 +1,5 @@
 export * from './button'
+export * from './button-group'
 export * from './wave'
 export * from './icon'
 export * from './scrollbar'

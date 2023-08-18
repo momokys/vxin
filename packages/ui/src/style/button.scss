@@ -5,11 +5,11 @@
 @use "common/fun" as *;
 @use "common/mixins" as *;
 
-@include b(button) {
-  @include map-css-var(button, $button);
+@include b(btn) {
+  @include map-css-var(btn, $btn);
 }
 
-@include b(button) {
+@include b(btn) {
   position: relative;
   display: inline-flex;
   justify-content: center;
@@ -19,8 +19,8 @@
   outline: none;
   border: 1px solid transparent;
   border-radius: cssVar(border-radius);
-  color: cssVar(button-default-text-color);
-  background-color: cssVar(button-default-bg-color);
+  color: cssVar(btn-default-text-color);
+  background-color: cssVar(btn-default-bg-color);
   white-space: nowrap;
   transition: all .3s cssVar(bezier);
   cursor: pointer;
@@ -28,10 +28,10 @@
 
   &:hover,
   &:focus {
-    background-color: cssVar(button-default-hover-bg-color);
+    background-color: cssVar(btn-default-hover-bg-color);
   }
   &:active {
-    background-color: cssVar(button-default-active-bg-color);
+    background-color: cssVar(btn-default-active-bg-color);
   }
   &>span {
     display: inline-flex;
@@ -39,14 +39,14 @@
     align-items: center;
   }
   &>i + span {
-    margin-left: cssVar(button-icon-margin);
+    margin-left: cssVar(btn-icon-margin);
   }
   &>span>i {
-    margin-left: cssVar(button-icon-margin);
+    margin-left: cssVar(btn-icon-margin);
   }
 
   &~& {
-    margin: cssVar(button-margin);
+    margin: cssVar(btn-margin);
   }
 
   @include m(outline) {
@@ -97,7 +97,6 @@
     opacity: cssVar(disabled-opacity);
     cursor: not-allowed;
   }
-
   @include is(loading) {
     cursor: wait;
     &>i {
@@ -178,11 +177,16 @@
       @include m(round) {
         border-radius: cssVar(size, $size);
       }
-
       @include m(circle) {
         padding: 0;
         width: cssVar(size, $size);
         border-radius: 50%;
+      }
+
+      @include is(only-icon) {
+        width: cssVar(size, $size);
+        height: cssVar(size, $size);
+        padding: 0;
       }
     }
   }

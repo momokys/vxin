@@ -13,7 +13,7 @@ import {
 import { addunit, isUndefined } from '@vxin/utils'
 import { Position, useDrag, useEventListener } from '@vxin/hooks'
 import { Close, FullScreen, Minus } from '@vxin/icons'
-import { VButton } from '@/components'
+import { VBtn } from '@/components'
 import { useNamespace } from '@/hooks'
 import { modalProps } from './props'
 
@@ -163,19 +163,19 @@ export default defineComponent({
               <div class={ns.e('header')} onMousedown={handleDrag}>
                 <div class={ns.e('title')}>{props.title ?? '标题'}</div>
                 <div class={ns.e('toolbar')}>
-                  <VButton
+                  <VBtn
                     type={'text'}
                     size={'small'}
                     icon={fullscreen.value ? Minus : FullScreen}
                     onClick={toggleFullscreen}
                   />
-                  <VButton type={'text'} icon={Close} size={'small'} onClick={close} />
+                  <VBtn type={'text'} icon={Close} size={'small'} onClick={close} />
                 </div>
               </div>
               <div class={ns.e('body')}>{slots.default?.()}</div>
               <div class={ns.e('footer')}>
-                <VButton label={'取消'} status={'default'} />
-                <VButton label={'确定'} status={'primary'} />
+                <VBtn label={'取消'} status={'default'} />
+                <VBtn label={'确定'} status={'primary'} />
               </div>
             </div>
           </div>

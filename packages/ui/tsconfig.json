@@ -21,7 +21,6 @@
     "src/**/*.ts",
     "env.d.ts",
     "histoire.setup.ts",
-    "histoire.config.ts",
     "vite.config.ts"
   ]
 }

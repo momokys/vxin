@@ -1,9 +1,11 @@
 <template>
-  <Story title="Button" :layout="{ type: 'grid', width: '100%' }">
+  <Story title="Button" :setup-app="setupApp" :layout="{ type: 'grid', width: '100%' }">
     <Variant title="playground">
-      <v-button v-bind="state" :icon="icons[state.icon]" @click="logEvent('click', $event)" />
+      <v-btn v-bind="state" @click="logEvent('click', $event)" />
       <template #controls>
         <HstText title="label" v-model="state.label" />
+        <HstSelect title="tag" v-model="state.tag" :options="['button', 'span', 'a']" />
+        <HstText v-if="state.tag === 'a' || state.type === 'link'" title="href" v-model="state.href" />
         <HstSelect title="type" v-model="state.type" :options="['default', 'text', 'link', 'outline']" />
         <HstSelect
           title="status"
@@ -12,7 +14,7 @@
         />
         <HstSelect title="shape" v-model="state.shape" :options="['default', 'circle', 'round']" />
         <HstSelect title="size" v-model="state.size" :options="['mini', 'small', 'medium', 'large']" />
-        <HstSelect title="icon" v-model="state.icon" :options="Object.keys(Icons)" />
+        <HstSelect title="icon" v-model="state.icon" :options="icons" />
         <HstCheckbox title="disabled" v-model="state.disabled" />
         <HstCheckbox title="loading" v-model="state.loading" />
         <HstSelect title="loading-icon" v-model="state.loadingIcon" :options="icons" />
@@ -21,71 +23,78 @@
     </Variant>
     <Variant title="type">
       <div>
-        <v-button label="Default" status="primary" type="default" />
-        <v-button label="Outline" status="primary" type="outline" />
-        <v-button label="Text" status="primary" type="text" />
-        <v-button label="Link" status="primary" type="link" />
+        <v-btn label="Default" status="primary" type="default" />
+        <v-btn label="Outline" status="primary" type="outline" />
+        <v-btn label="Text" status="primary" type="text" />
+        <v-btn label="Link" status="primary" type="link" />
       </div>
     </Variant>
     <Variant title="status">
       <div>
-        <v-button label="Primary" status="primary" type="default" />
-        <v-button label="Primary" status="primary" type="outline" />
-        <v-button label="Primary" status="primary" type="text" />
+        <v-btn label="Primary" status="primary" type="default" />
+        <v-btn label="Primary" status="primary" type="outline" />
+        <v-btn label="Primary" status="primary" type="text" />
       </div>
       <div>
-        <v-button status="success" label="Success" type="default" />
-        <v-button status="success" label="Success" type="outline" />
-        <v-button status="success" label="Success" type="text" />
+        <v-btn status="success" label="Success" type="default" />
+        <v-btn status="success" label="Success" type="outline" />
+        <v-btn status="success" label="Success" type="text" />
       </div>
       <div>
-        <v-button status="warning" label="Warning" type="default" />
-        <v-button status="warning" label="Warning" type="outline" />
-        <v-button status="warning" label="Warning" type="text" />
+        <v-btn status="warning" label="Warning" type="default" />
+        <v-btn status="warning" label="Warning" type="outline" />
+        <v-btn status="warning" label="Warning" type="text" />
       </div>
       <div>
-        <v-button status="danger" label="Danger" type="default" />
-        <v-button status="danger" label="Danger" type="outline" />
-        <v-button status="danger" label="Danger" type="text" />
+        <v-btn status="danger" label="Danger" type="default" />
+        <v-btn status="danger" label="Danger" type="outline" />
+        <v-btn status="danger" label="Danger" type="text" />
       </div>
     </Variant>
     <Variant title="icon">
-      <v-button label="Search" status="primary" :icon="icons['Search']" />
-      <v-button status="danger"> Close <v-icon :icon="icons['Close']" /></v-button>
+      <v-btn label="Search" status="primary" icon="Search" />
+      <v-btn status="danger"> Close <v-icon icon="Close" /></v-btn>
     </Variant>
     <Variant title="shape">
-      <v-button label="Default" shape="default" status="default" />
-      <v-button label="Round" shape="round" status="primary" />
-      <v-button status="danger" shape="circle" :icon="icons['Close']" />
-    </Variant>
-    <Variant title="loading">
-      <v-button label="Loading" status="primary" loading />
+      <v-btn label="Default" shape="default" status="default" />
+      <v-btn label="Round" shape="round" status="primary" />
+      <v-btn status="danger" shape="circle" icon="Close" />
     </Variant>
     <Variant title="disabled">
-      <v-button label="Disabled" status="primary" disabled />
+      <v-btn label="Disabled" status="primary" disabled />
+    </Variant>
+    <Variant title="loading">
+      <v-btn label="Loading" status="primary" loading />
+    </Variant>
+    <Variant title="group">
+      <v-btn-group size="small">
+        <v-btn label="Left" />
+        <v-btn label="Center" />
+        <v-btn label="Right" />
+      </v-btn-group>
+      <v-btn-group size="small">
+        <v-btn label="Search" />
+        <v-btn icon="Search" />
+      </v-btn-group>
+      <v-btn-group :disabled="true">
+        <v-btn label="Close" />
+        <v-btn icon="Close" />
+      </v-btn-group>
     </Variant>
   </Story>
 </template>
 <script setup lang="ts">
-import { Component, reactive } from 'vue'
+import { reactive } from 'vue'
 import { logEvent } from 'histoire/client'
 import * as Icons from '@vxin/icons'
-import { VButton, ButtonProps, VIcon } from '@/components'
-// import { useTheme } from '@/hooks'
+import { VBtn, VBtnGroup, BtnProps, VIcon } from '@/components'
 
-// useTheme()
-const state = reactive<ButtonProps>({
+const state = reactive<BtnProps>({
   label: 'Button',
-  // type: 'default',
-  // shape: 'square',
-  // size: 'medium',
-  // color: 'normal',
 })
 
-const icons = Object.entries(Icons).reduce((res, [key, icon]) => {
-  if (key !== 'default') {
-    res[key] = icon
-  }
-  return res
-}, {} as Record<string, Component>)
+function setupApp({ app }: any) {
+  app.use(Icons.default)
+}
+const icons = Object.keys(Icons)
 </script>
