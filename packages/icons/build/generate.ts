@@ -3,7 +3,7 @@ import { emptyDir, ensureDir } from 'fs-extra'
 import { findWorkspaceDir } from '@pnpm/find-workspace-dir'
 import { findWorkspacePackages } from '@pnpm/find-workspace-packages'
 import { readFile, writeFile } from 'fs/promises'
-import { upperFirst, camelCase } from 'lodash'
+import { upperFirst, camelCase } from '@vxin/fns'
 import { COMPONENTS_DIR, COMPONENTS_ENTRY } from './config'
 
 type SvgMeta = { file: string; name: string; componentName: string }

@@ -1,4 +1,4 @@
-import { ExtractPropTypes, PropType } from "vue";
+import { ExtractPropTypes, PropType } from 'vue'
 
 export const modalProps = {
   visible: Boolean,
@@ -14,9 +14,9 @@ export const modalProps = {
   isFunction: Boolean,
   appendToBody: {
     type: Boolean,
-    default: true
+    default: true,
   },
-  destroy: Function as PropType<() => void>
+  destroy: Function as PropType<() => void>,
 }
 
 export type ModalProps = ExtractPropTypes<typeof modalProps>

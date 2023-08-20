@@ -1,4 +1,4 @@
-import { ThemeConfig } from '@/hooks'
+import type { ThemeConfig } from '@/hooks'
 export default {
   colors: {
     primary: '#3a7afe',

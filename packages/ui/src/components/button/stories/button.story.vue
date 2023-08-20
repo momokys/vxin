@@ -1,5 +1,5 @@
 <template>
-  <Story title="Button" :setup-app="setupApp" :layout="{ type: 'grid', width: '100%' }">
+  <Story title="Button" :layout="{ type: 'grid', width: '100%' }">
     <Variant title="playground">
       <v-btn v-bind="state" @click="logEvent('click', $event)" />
       <template #controls>
@@ -93,8 +93,5 @@ const state = reactive<BtnProps>({
   label: 'Button',
 })
 
-function setupApp({ app }: any) {
-  app.use(Icons.default)
-}
 const icons = Object.keys(Icons)
 </script>

@@ -4,12 +4,11 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "test:ct": "cypress open --component",
     "story:dev": "pnpm -F @vxin/ui run story:dev",
     "build:icons": "pnpm -F @vxin/icons run build",
     "publish:icons": "pnpm -F @vxin/icons run publish",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
-    "gc": "cd scripts && gc.sh"
+    "gc": "bash ./scripts/cmd.sh gc"
   },
   "devDependencies": {
     "@pnpm/find-workspace-dir": "^5.0.1",
@@ -24,6 +23,7 @@
     "@vue/eslint-config-prettier": "^7.0.0",
     "@vue/eslint-config-typescript": "^11.0.0",
     "@vue/test-utils": "^2.2.6",
+    "@vxin/fns": "workspace:^0.0.1",
     "@vxin/tsconfig": "workspace:^0.0.1",
     "eslint": "^8.5.0",
     "eslint-plugin-vue": "^9.0.0",
@@ -35,10 +35,11 @@
     "rimraf": "^5.0.1",
     "sass": "^1.65.1",
     "start-server-and-test": "^1.14.0",
+    "ts-morph": "^19.0.0",
     "tslib": "^2.5.3",
     "tsx": "^3.10.1",
     "typescript": "^4.9.5",
-    "vite": "4.2.0",
+    "vite": "^4.4.9",
     "vitest": "^0.28.5",
     "vue-tsc": "^1.2.0"
   },

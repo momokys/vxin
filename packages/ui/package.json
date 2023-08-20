@@ -20,6 +20,6 @@
   "devDependencies": {
     "@histoire/plugin-vue": "^0.16.4",
     "histoire": "^0.16.4",
-    "vue": "3.2.47"
+    "vue": "^3.2.47"
   }
 }

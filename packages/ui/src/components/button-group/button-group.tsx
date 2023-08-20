@@ -1,5 +1,5 @@
 import { defineComponent, h, InjectionKey, provide, renderSlot } from 'vue'
-import {BtnGroupProps, btnGroupProps} from './props'
+import { BtnGroupProps, btnGroupProps } from './props'
 import { useGlobalConfig, useNamespace } from '@/hooks'
 import { ComponentSize } from '@/utils'
 

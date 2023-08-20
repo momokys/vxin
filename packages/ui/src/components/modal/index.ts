@@ -2,7 +2,6 @@ import Modal from './modal'
 import { withInstall } from '@vxin/utils'
 import '@/style/modal.scss'
 
-
 export default withInstall(Modal)
 export const VModal = Modal
 export type { ModalProps } from './props'

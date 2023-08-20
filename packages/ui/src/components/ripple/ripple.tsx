@@ -6,10 +6,10 @@ export default defineComponent({
   emits: ['click'],
   setup() {
     const ns = useNamespace('ripple')
-    return () => {
+    return () => (
       <span class={ns.b('wrap')}>
         <span class={ns.b()} />
       </span>
-    }
-  }
+    )
+  },
 })

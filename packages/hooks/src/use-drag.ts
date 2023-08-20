@@ -102,7 +102,6 @@ export function useDrag(target: HTMLElement | Ref<HTMLElement | undefined>, opti
       p.x = opts.boundLimit ? (newX < bound.minX ? bound.minX : newX > bound.maxX ? bound.maxX : newX) : newX
       p.y = opts.boundLimit ? (newY < bound.minY ? bound.minY : newY > bound.maxY ? bound.maxY : newY) : newY
 
-
       lastX = ev.clientX
       lastY = ev.clientY
 

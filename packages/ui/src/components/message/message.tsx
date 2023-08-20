@@ -1,4 +1,4 @@
-import {Component, defineComponent, PropType, Transition, ref, onMounted} from 'vue'
+import { Component, defineComponent, PropType, Transition, ref, onMounted } from 'vue'
 import { VIcon } from '../../index'
 import { useNamespace } from '@/hooks'
 
@@ -13,13 +13,10 @@ export default defineComponent({
     icon: [String, Object, Function] as PropType<string | Component>,
     duration: {
       type: Number,
-      default: 3000
+      default: 3000,
     },
     offset: Number,
-    onDestroy: {
-      type: Function as PropType<() => void>,
-      default: () => {}
-    }
+    onDestroy: Function as PropType<() => void>,
   },
   setup(props) {
     const ns = useNamespace('message')

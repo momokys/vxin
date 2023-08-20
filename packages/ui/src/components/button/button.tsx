@@ -13,10 +13,9 @@ export default defineComponent({
   emits: ['click'],
   setup(props, { emit, slots }) {
     const ns = useNamespace('btn')
-    const btnGroupCtx = inject(BTN_GROUP_CTX_INJECT_KEY)
+    const btnGroupCtx = inject(BTN_GROUP_CTX_INJECT_KEY, null)
     const globalConfigSize = useGlobalConfig('size')
     const disabled = computed(() => props.disabled || props.loading || btnGroupCtx?.disabled)
-    console.log(disabled.value)
     const size = computed(() => props.size ?? btnGroupCtx?.size ?? globalConfigSize.value)
     const icon = computed(() => (props.loading ? props.loadingIcon ?? defaultLoadingIcon : props.icon))
     const renderLabel = () => {

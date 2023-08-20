@@ -3,7 +3,7 @@
     <Variant title="playground">
       <template #default>
         <div class="wrap" @click="onClick">
-          <span :class="`v-ripple ${ active ? 'play' : '' }`"></span>
+          <span :class="`v-ripple ${active ? 'play' : ''}`"></span>
         </div>
       </template>
     </Variant>
@@ -11,14 +11,12 @@
 </template>
 <script setup lang="ts">
 import { ref } from 'vue'
-import { VRipple } from '@/components'
 
 const active = ref(false)
 
 const onClick = () => {
   active.value = !active.value
 }
-
 </script>
 
 <style lang="scss">
@@ -44,7 +42,7 @@ const onClick = () => {
     margin-left: var(--v-ripple-d);
     background-color: var(--v-color-primary-1);
     transform: scale(0);
-    transition: all .2s;
+    transition: all 0.2s;
 
     &.play {
       transform: scale(1);

@@ -1,9 +1,14 @@
 {
-  "extends": "@vxin/tsconfig/tsconfig.web.json",
   "compilerOptions": {
     "target": "ESNext",
     "module": "ESNext",
     "moduleResolution": "Node",
+    "strict": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noImplicitThis": true,
     "jsx": "preserve",
     "jsxFactory": "h",
     "jsxFragmentFactory": "Fragment",
@@ -20,7 +25,6 @@
     "src/**/*.tsx",
     "src/**/*.ts",
     "env.d.ts",
-    "histoire.setup.ts",
-    "vite.config.ts"
+    ".histoire.ts"
   ]
 }

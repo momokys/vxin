@@ -1,5 +1,5 @@
 import { App, AppContext, DefineComponent, ComponentInternalInstance, h, render, VNode } from 'vue'
-import { uniqueId } from 'lodash'
+import { uniqueId } from '@vxin/utils'
 import _Message from './message'
 import { MessageType } from './message'
 
@@ -33,6 +33,7 @@ const createMessage = (options: MessageOptions): MessageInstance => {
   const props = {
     ...options,
     id,
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     onClose: () => {},
     onDestroy: () => {
       render(null, container)
@@ -55,6 +56,7 @@ const createMessage = (options: MessageOptions): MessageInstance => {
 }
 
 const _message: MessageFn = (options: MessageOptions) => {
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   if (!options.msg) return { close: () => {} }
   const instance = createMessage(options)
   instances.push(instance)
