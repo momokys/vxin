@@ -1,5 +1,5 @@
 <template>
-  <Story title="Button" :layout="{ type: 'grid', width: '100%' }">
+  <Story title="Btn/Btn" :layout="{ type: 'grid', width: '100%' }">
     <Variant title="playground">
       <v-btn v-bind="state" @click="logEvent('click', $event)" />
       <template #controls>
@@ -66,28 +66,13 @@
     <Variant title="loading">
       <v-btn label="Loading" status="primary" loading />
     </Variant>
-    <Variant title="group">
-      <v-btn-group size="small">
-        <v-btn label="Left" />
-        <v-btn label="Center" />
-        <v-btn label="Right" />
-      </v-btn-group>
-      <v-btn-group size="small">
-        <v-btn label="Search" />
-        <v-btn icon="Search" />
-      </v-btn-group>
-      <v-btn-group :disabled="true">
-        <v-btn label="Close" />
-        <v-btn icon="Close" />
-      </v-btn-group>
-    </Variant>
   </Story>
 </template>
 <script setup lang="ts">
 import { reactive } from 'vue'
 import { logEvent } from 'histoire/client'
 import * as Icons from '@vxin/icons'
-import { VBtn, VBtnGroup, BtnProps, VIcon } from '@/components'
+import { VBtn, BtnProps, VIcon } from '@/components'
 
 const state = reactive<BtnProps>({
   label: 'Button',

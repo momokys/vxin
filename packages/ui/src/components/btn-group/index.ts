@@ -1,6 +1,6 @@
 import BtnGroup from './button-group'
 import { withInstall } from '@vxin/utils'
-import '@/style/button-group.scss'
+import '@/style/btn-group.scss'
 
 export default withInstall(BtnGroup)
 export const VBtnGroup = BtnGroup

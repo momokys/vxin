@@ -1,6 +1,6 @@
-import Btn from './button'
+import Btn from './Btn'
 import { withInstall } from '@vxin/utils'
-import '@/style/button.scss'
+import '@/style/btn.scss'
 
 export default withInstall(Btn)
 export const VBtn = Btn

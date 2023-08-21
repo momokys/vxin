@@ -1,6 +1,6 @@
 import { defineComponent, renderSlot } from 'vue'
-import { isArray, isNumber } from 'lodash'
-import { ComponentSize } from '@vxin/utils'
+import { isArray, isNumber } from '@vxin/utils'
+import { ComponentSize } from '@/utils'
 import { useNamespace } from '@/hooks'
 import { spaceProps } from './props'
 

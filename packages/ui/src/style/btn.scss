@@ -20,7 +20,7 @@
   border: 1px solid transparent;
   border-radius: cssVar(border-radius);
   color: cssVar(btn-default-text-color);
-  background-color: cssVar(btn-default-bg-color);
+  background-color: cssVar(color-secondary-0);
   white-space: nowrap;
   transition: all .3s cssVar(bezier);
   cursor: pointer;
@@ -28,10 +28,10 @@
 
   &:hover,
   &:focus {
-    background-color: cssVar(btn-default-hover-bg-color);
+    background-color: cssVar(color-secondary-1);
   }
   &:active {
-    background-color: cssVar(btn-default-active-bg-color);
+    background-color: cssVar(color-secondary-2);
   }
   &>span {
     display: inline-flex;
@@ -168,7 +168,7 @@
     }
   }
 
-  @each $size in (large, medium, small, mini) {
+  @each $size in $sizeList {
     @include m($size) {
       height: cssVar(size, $size);
       padding: 0 cssVar(padding, $size);

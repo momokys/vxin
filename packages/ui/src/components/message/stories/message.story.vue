@@ -11,7 +11,7 @@
   </Story>
 </template>
 <script setup lang="ts">
-import { VBtn } from '@/components/button'
+import { VBtn } from '@/components/btn'
 import { message } from '@/components'
 import { Close } from '@vxin/icons'
 

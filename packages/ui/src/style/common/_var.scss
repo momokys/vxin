@@ -1,13 +1,13 @@
 @use "sass:math";
 @use "sass:map";
 
-$types: (primary, secondary, success, warning, danger, error);
+$colorList: (primary, secondary, success, warning, danger, error);
 
 //color
 $colors: () !default;
 $colors: map.deep-merge(
     (
-      'secondary': #8d9095,
+      'secondary': #a6a6a6,
       'primary': #3a7afe,
       'success': #00c48f,
       'warning': #ff9f00,
@@ -17,6 +17,7 @@ $colors: map.deep-merge(
     $colors
 );
 
+$sizeList: (large, medium, small, mini);
 $sizes: () !default;
 $sizes: map.deep-merge(
     (

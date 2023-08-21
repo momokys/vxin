@@ -1,13 +1,17 @@
 import type { App, AppContext, Plugin } from 'vue'
 
-export type SFCInstall<T> = T & Plugin
+export type SFCWithInstall<T> = T & Plugin
 
-export const withInstall = <T extends Record<string, any>>(sfc: T, installFn?: (app: App) => void) => {
-  ;(sfc as SFCInstall<T>).install = (app: App) => {
-    app.component(sfc.name, sfc)
-    installFn?.(app)
+export const withInstall = <T extends Record<string, any>, E extends Record<string, any>>(main: T, extra?: E) => {
+  ;(main as SFCWithInstall<T>).install = (app: App) => {
+    app.component(main.name, main)
   }
-  return sfc as SFCInstall<T>
+  if (extra) {
+    for (const [key, comp] of Object.entries(extra)) {
+      ;(main as any)[key] = comp
+    }
+  }
+  return main as SFCWithInstall<T> & E
 }
 
 export type FnInstallWithContext<T> = T &
@@ -16,7 +20,7 @@ export type FnInstallWithContext<T> = T &
   }
 
 export const withInstallFn = <T>(fn: T, name: string) => {
-  ;(fn as SFCInstall<T>).install = (app) => {
+  ;(fn as SFCWithInstall<T>).install = (app) => {
     ;(fn as unknown as App)._context = app._context
     app.config.globalProperties[name] = fn
   }

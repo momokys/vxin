@@ -4,9 +4,11 @@
   "license": "MIT",
   "private": true,
   "scripts": {
+    "bootstrap": "pnpm run gc && pnpm i",
     "story:dev": "pnpm -F @vxin/ui run story:dev",
     "build:icons": "pnpm -F @vxin/icons run build",
     "publish:icons": "pnpm -F @vxin/icons run publish",
+    "postinstall": "pnpm -F @vxin/icons run build",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "gc": "bash ./scripts/cmd.sh gc"
   },

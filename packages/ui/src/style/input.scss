@@ -1,0 +1,131 @@
+@use "sass:map";
+@use "sass:math";
+@use "common/config" as *;
+@use "common/var" as *;
+@use "common/fun" as *;
+@use "common/mixins" as *;
+
+@include b(input, wrap) {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 12px;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  background-color: cssVar(color-secondary-0);
+  transition: all .3s cssVar(bezier);
+
+  @include b(input) {
+    width: 100%;
+    outline: none;
+    background-color: transparent;
+
+    @each $size in $sizeList {
+      @include m($size) {
+        padding: 4px 0;
+        line-height: 1.5715;
+        font-size: cssVar(font-size, $size);
+      }
+    }
+  }
+  @include e(clear-btn) {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 16px;
+    height: 16px;
+    border-radius: 8px;
+    margin-left: 3px;
+    color: cssVar(color-secondary-8);
+    background-color: transparent;
+    opacity: 0;
+    cursor: pointer;
+    transition: all .3s cssVar(bezier);
+  }
+
+  &:hover {
+    background-color: cssVar(color-secondary-1);
+    @include e(clear-btn) {
+      opacity: 1;
+      &:hover {
+        background-color: cssVar(color-secondary-3);
+      }
+    }
+  }
+  &:focus-within {
+    border-color: cssVar(color-primary-5);
+    background-color: transparent;
+    @include e(clear-btn) {
+      background-color: transparent;
+      &:hover {
+        background-color: cssVar(color-secondary-1);
+      }
+    }
+  }
+
+  @include is(readonly) {
+    &:focus-within {
+      border-color: transparent;
+      background-color: cssVar(color-secondary-0);
+      &:hover {
+        background-color: cssVar(color-secondary-1);
+      }
+    }
+    @include e(clear-btn) {
+      opacity: 0;
+      cursor: default;
+    }
+  }
+  @include is(disabled) {
+    background-color: cssVar(color-secondary-0);
+    &:hover {
+      background-color: cssVar(color-secondary-0);
+    }
+    cursor: not-allowed;
+    @include b(input) {
+      cursor: not-allowed;
+    }
+    @include e(clear-btn) {
+      opacity: 0;
+      cursor: not-allowed;
+    }
+  }
+  @include is(error) {
+    background-color: cssVar(color-error-1);
+    &:hover:not(.is-disabled) {
+      background-color: cssVar(color-error-2);
+      @include e(clear-btn) {
+        &:hover {
+          background-color: cssVar(color-error-4);
+        }
+      }
+    }
+    &:focus-within:not(.is-disabled) {
+      border-color: cssVar(color-error-5);
+      background-color: transparent;
+      @include e(clear-btn) {
+        &:hover {
+          background-color: cssVar(color-secondary-1);
+        }
+      }
+    }
+    @include is(disabled) {
+      &:hover {
+        background-color: cssVar(color-error-1);
+      }
+    }
+    @include is(readonly) {
+      &:focus-within {
+        border-color: transparent;
+        background-color: cssVar(color-error-2);
+      }
+    }
+  }
+  @include is(full) {
+    width: 100%;
+  }
+  @include e(clear-btn) {
+    @include is(empty) {
+      opacity: 0;
+    }
+  }
+}
