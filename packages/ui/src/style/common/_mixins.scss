@@ -44,9 +44,66 @@ $B: '';
 }
 
 @mixin is($state) {
+  $cls: '';
+  @if(str-index($state, ':') == 1) {
+    $cls: & + $state;
+  } @else {
+    $cls: & + '.' + $state-prefix + $state;
+  }
   @at-root {
-    &.#{$state-prefix + $state} {
+    #{$cls} {
       @content;
+    }
+  }
+}
+@mixin is-not($state) {
+  $cls: '';
+  @if(str-index($state, ':') == 1) {
+    $cls: & + ':not('+ $state + ')';
+  } @else {
+    $cls: & + ':not('+ '.' + $state-prefix + $state + ')';
+  }
+  @at-root {
+    #{$cls} {
+      @content;
+    }
+  }
+}
+
+@mixin is-and($states...) {
+  $state: '';
+  @for $index from 1 through length($states) {
+    @if(str-index(nth($states, $index), ':') == 1) {
+      $state: $state + nth($states, $index);
+    } @else {
+      $state: $state + '.' + $state-prefix + nth($states, $index);
+    }
+    @at-root {
+      &#{$state} {
+        @content;
+      }
+    }
+  }
+}
+
+@mixin is-or($states...) {
+  $cls: '';
+  @for $index from 1 through length($states) {
+    $item: '';
+    @if(str-index(nth($states, $index), ':') == 1) {
+      $item: & + nth($states, $index);
+    } @else {
+      $item: & + '.' + $state-prefix + nth($states, $index);
+    }
+    @if($index == 1) {
+      $cls: $item;
+    } @else {
+      $cls: $cls + ',' + $item;
+    }
+    @at-root {
+      #{$cls} {
+        @content;
+      }
     }
   }
 }

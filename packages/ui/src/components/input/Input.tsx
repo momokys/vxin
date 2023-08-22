@@ -2,53 +2,103 @@ import { computed, defineComponent, h, ref } from 'vue'
 import { Close } from '@vxin/icons'
 import { isEmpty, isFunction, isNumber } from '@vxin/utils'
 import { useNamespace, useGlobalConfig } from '@/hooks'
-import { VIcon } from '@/components'
+import { VBtn } from '@/components'
 import { inputProps } from './props'
 
 export default defineComponent({
   name: 'VInput',
   props: inputProps,
   emits: ['update:modelValue', 'change'],
-  setup(props, { emit }) {
+  setup(props, { emit, slots }) {
     const ns = useNamespace('input')
     const inputRef = ref<HTMLInputElement>()
     const globalConfigSize = useGlobalConfig('size')
     const size = computed(() => props.size ?? globalConfigSize.value)
+    const inputLen = computed(() => strLen(props.modelValue, props.wordLen))
+    const isError = computed(
+      () => props.error || (isNumber(props.maxLen) && props.allowOver && inputLen.value > props.maxLen),
+    )
+    const showSuffix = computed(() => props.showWordLimit || isFunction(slots.suffix))
+
+    // 处理聚焦
+    let isClick = false
+    const isFocus = ref(false)
+    const onMousedown = () => {
+      isClick = true
+      inputRef.value!.focus()
+    }
+    const onMouseup = () => {
+      if (isClick) {
+        isClick = false
+        inputRef.value!.focus()
+      }
+    }
+    const onMouseleave = () => {
+      if (isClick) {
+        isClick = false
+        inputRef.value!.focus()
+      }
+    }
+
+    // 输入
     let composition = false
     const update = () => {
-      const content = inputRef.value!.value
-      if (isNumber(props.maxLen) && strLen(content, props.wordLen) <= props.maxLen) {
-        emit('update:modelValue', content)
-      } else {
-        emit('update:modelValue', props.modelValue ?? '')
-        inputRef.value!.value = (props.modelValue ?? '') as any
+      let input: string | undefined = inputRef.value!.value
+      if (!props.allowOver && isNumber(props.maxLen)) {
+        input = strLen(input, props.wordLen) <= props.maxLen ? input : props.modelValue ?? ''
       }
+      emit('update:modelValue', input)
+      inputRef.value!.value = input
     }
     const onInput = () => {
       if (composition) return
       update()
     }
     const onChange = (ev: Event) => {
+      if (composition) return
       emit('change', ev)
     }
     const onClear = () => {
       if (props.readonly || props.disabled) return
       emit('update:modelValue', '')
-      inputRef.value!.focus()
     }
+
+    const ClearBtn = () => (
+      <VBtn
+        type={'default'}
+        icon={Close}
+        size={'small'}
+        shape={'circle'}
+        disabled={isEmpty(props.modelValue)}
+        class={[ns.e('clear-btn')]}
+        onClick={onClear}
+      />
+    )
+    const WordLimit = () => (
+      <span class={ns.e('word-limit')}>
+        {inputLen.value}/{props.maxLen}
+      </span>
+    )
     return () => (
-      <div
+      <span
         class={[
           ns.b('wrap'),
+          ns.is('focus', isFocus.value),
           ns.is('readonly', props.readonly),
           ns.is('disabled', props.disabled),
-          ns.is('error', props.error),
-          ns.is('full', props.full ?? true),
+          ns.is('error', isError.value),
+          ns.is('full', props.full),
+          ns.is('empty', isEmpty(props.modelValue)),
         ]}
+        onMousedown={onMousedown}
+        onMouseup={onMouseup}
+        onMouseleave={onMouseleave}
       >
+        {isFunction(slots.prefix) ? <span class={ns.e('prefix')}>{slots.prefix()}</span> : ''}
         <input
           ref={inputRef}
-          value={props.modelValue ?? ''}
+          type={props.type ?? 'text'}
+          value={props.modelValue}
           placeholder={props.placeholder}
           disabled={props.disabled}
           readonly={props.readonly}
@@ -62,15 +112,24 @@ export default defineComponent({
             composition = false
             update()
           }}
+          onFocus={() => {
+            isFocus.value = true
+          }}
+          onBlur={() => {
+            if (isClick) return
+            isFocus.value = false
+          }}
         />
-        {props.clearable ? (
-          <span class={[ns.e('clear-btn'), ns.is('empty', isEmpty(props.modelValue))]} onClick={onClear}>
-            <VIcon icon={Close} size={12} />
+        {props.clearable ? <ClearBtn /> : ''}
+        {showSuffix.value ? (
+          <span class={ns.e('suffix')}>
+            {props.showWordLimit && isNumber(props.maxLen) ? <WordLimit /> : ''}
+            {isFunction(slots.suffix) ? slots.suffix() : ''}
           </span>
         ) : (
           ''
         )}
-      </div>
+      </span>
     )
   },
 })
@@ -89,3 +148,13 @@ const strLen = (target?: string, wordLen?: (word: string) => number) => {
     return target!.toString().length
   }
 }
+
+// const fixInput = (
+//   input?: string,
+//   opts: {
+//     maxLen?: number
+//     wordLen?: (word: string) => number
+//   },
+// ) => {
+//
+// }

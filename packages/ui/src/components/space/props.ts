@@ -1,5 +1,5 @@
 import { ExtractPropTypes, PropType } from 'vue'
-import { ComponentSize } from '@vxin/utils'
+import { ComponentSize } from '@/utils'
 
 export type Align = 'start' | 'end' | 'center' | 'baseline' | 'stretch'
 export type Justify = 'start' | 'end' | 'center' | 'space-around' | 'space-between' | 'space-evenly'

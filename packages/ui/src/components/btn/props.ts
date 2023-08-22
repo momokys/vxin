@@ -18,7 +18,7 @@ export const btnProps = {
   size: String as PropType<ComponentSize>,
   status: {
     type: String as PropType<BtnStatus>,
-    default: 'primary',
+    default: '',
   },
   color: String,
   icon: [String, Object] as PropType<string | Component>,
