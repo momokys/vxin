@@ -23,7 +23,7 @@ export const ripple = (target: HTMLElement, c: Point, opts?: RippleOptions) => {
   setTimeout(() => {
     const release = () => {
       rippleEl.removeEventListener('transitionend', release)
-      // wrapEl.remove()
+      wrapEl.remove()
     }
     rippleEl.addEventListener('transitionend', release)
 
