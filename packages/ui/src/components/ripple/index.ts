@@ -1,6 +1,5 @@
-import Ripple from './ripple'
-import { withInstall } from '@vxin/utils'
-import '@/style/ripple.scss'
+import { vRipple } from './ripple'
 
-export const VRipple = withInstall(Ripple)
-export default VRipple
+export default vRipple
+
+export * from './ripple'

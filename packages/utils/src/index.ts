@@ -1,5 +1,6 @@
 export * from '@vxin/fns'
 export * from './install'
 export * from './create'
+export * from './types'
 export * from './unit'
 export * from './vue'

@@ -1,7 +1,7 @@
-import { computed, defineComponent, h, inject } from 'vue'
+import { computed, defineComponent, h, inject, withDirectives } from 'vue'
 import { Loading } from '@vxin/icons'
 import { useGlobalConfig, useNamespace } from '@/hooks'
-import { VIcon, BTN_GROUP_CTX_INJECT_KEY } from '@/components'
+import { VIcon, BTN_GROUP_CTX_INJECT_KEY, vRipple } from '@/components'
 import { btnProps } from './props'
 import { isEmpty } from '@vxin/utils'
 
@@ -25,7 +25,7 @@ export default defineComponent({
     const renderIcon = () => {
       return icon.value ? <VIcon class={ns.e('icon')} icon={icon.value} /> : ''
     }
-    const handleClick = (ev: MouseEvent) => {
+    const onClick = (ev: MouseEvent) => {
       if (disabled.value) return
       emit('click', ev)
     }
@@ -44,7 +44,7 @@ export default defineComponent({
           ns.is('loading', props.loading),
         ],
         disabled: disabled.value,
-        onClick: handleClick,
+        onClick,
       }
       if (_tag === 'a') {
         _props.href = props.href || '#'
@@ -52,7 +52,15 @@ export default defineComponent({
       const _slots = {
         default: () => [renderIcon(), renderLabel()],
       }
-      return h(_tag, _props, _slots)
+      return withDirectives(h(_tag, _props, _slots), [
+        [
+          vRipple,
+          {
+            disabled: !(props.type === 'default' || props.type === ''),
+            color: `var(--v-color-${props.status}-0)`,
+          },
+        ],
+      ])
     }
   },
 })

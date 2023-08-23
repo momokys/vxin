@@ -10,7 +10,10 @@ export const btnProps = {
     type: String,
     default: 'button',
   },
-  type: String as PropType<BtnType>,
+  type: {
+    type: String as PropType<BtnType>,
+    default: 'default',
+  },
   shape: {
     type: String as PropType<BtnShape>,
     default: '',

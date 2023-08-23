@@ -23,7 +23,7 @@ export function useNamespace(block: string) {
     element && modifier ? _bem(namespace, block, '', element, modifier) : ''
   const is = (name: string, state?: boolean) => (state ? `is-${name}` : '')
   const cssVarName = (name: string) => `--${namespace}-${block}-${name}`
-  const cssVar = (name: string, defaultVar: string) => `var(${cssVarName(name)}, ${defaultVar})`
+  const cssVar = (name: string, defaultVar?: string) => `var(${cssVarName(name)}, ${defaultVar ?? ''})`
   return {
     b,
     e,
