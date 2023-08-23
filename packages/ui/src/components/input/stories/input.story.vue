@@ -49,6 +49,11 @@
             <span>.00</span>
           </template>
         </v-input>
+        <v-input v-model="state.modelValue" class="mb-1" full>
+          <template #suffix>
+            <v-btn icon="Search" type="text" shape="circle" size="mini" />
+          </template>
+        </v-input>
       </div>
     </Variant>
     <Variant title="password">
@@ -60,7 +65,7 @@
 <script setup lang="ts">
 import { reactive } from 'vue'
 // import { logEvent } from 'histoire/client'
-import { VInput, InputProps } from '@/components'
+import { VBtn, VInput, InputProps } from '@/components'
 
 const state = reactive<InputProps>({
   type: 'text',

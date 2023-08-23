@@ -43,11 +43,17 @@
     display: inline-flex;
     align-items: center;
     padding-right: 12px;
+    &>i {
+      color: cssVar(color-secondary-7);
+    }
   }
   @include e(suffix) {
     display: inline-flex;
     align-items: center;
     padding-left: 12px;
+    &>i {
+      color: cssVar(color-secondary-7);
+    }
   }
   @include e(clear-btn) {
     width: 16px !important;
