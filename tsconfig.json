@@ -1,0 +1,4 @@
+{
+  "extends": "@vxin/tsconfig/tsconfig.node.json",
+  "include": ["packages/*/build/**/*.ts"]
+}
