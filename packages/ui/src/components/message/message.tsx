@@ -1,4 +1,4 @@
-import { Component, defineComponent, PropType, Transition, ref, onMounted } from 'vue'
+import { Component, defineComponent, PropType, Transition, ref, onMounted, h } from 'vue'
 import { VIcon } from '../../index'
 import { useNamespace } from '@/hooks'
 
