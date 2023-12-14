@@ -15,7 +15,7 @@ const Ripple: Directive<RippleElement, RippleDirectiveBinding> = {
       console.log(binding.value)
       if (!binding.value.disabled) {
         ripple(
-          ev.target as HTMLElement,
+          ev.currentTarget as HTMLElement,
           {
             x: ev.clientX,
             y: ev.clientY,
