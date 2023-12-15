@@ -23,13 +23,18 @@ export default defineComponent({
     const visible = ref(false)
     onMounted(() => {
       visible.value = true
-      setTimeout(() => {
+      setTimeout(async () => {
         visible.value = false
       }, props.duration)
     })
     return () => (
       <Transition name={ns.b()} onAfterLeave={props.onDestroy}>
-        <div v-show={visible.value} id={props.id} class={[ns.b(), ns.m(props.type)]}>
+        <div
+          v-show={visible.value}
+          id={props.id}
+          class={[ns.b(), ns.m(props.type)]}
+          style={{ top: props.offset + 'px' }}
+        >
           <VIcon icon={props.icon} />
           <p>{props.msg}</p>
         </div>
