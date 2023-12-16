@@ -1,4 +1,5 @@
 export * from '@vxin/fns'
+export * from './clipboard'
 export * from './install'
 export * from './create'
 export * from './types'
