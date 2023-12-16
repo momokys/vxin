@@ -1,4 +1,4 @@
-import type { App, AppContext, Directive, Plugin } from 'vue'
+import type { App, Directive, Plugin } from 'vue'
 
 export type SFCWithInstall<T> = T & Plugin
 
@@ -14,17 +14,14 @@ export const withInstall = <T extends Record<string, any>, E extends Record<stri
   return main as SFCWithInstall<T> & E
 }
 
-export type FnInstallWithContext<T> = T &
-  Plugin & {
-    _context: AppContext | null
-  }
+export type FnWithInstall<T> = T & Plugin
 
 export const withInstallFn = <T>(fn: T, name: string) => {
   ;(fn as SFCWithInstall<T>).install = (app) => {
     ;(fn as unknown as App)._context = app._context
     app.config.globalProperties[name] = fn
   }
-  return fn as FnInstallWithContext<T>
+  return fn as FnWithInstall<T>
 }
 
 export const withInstallDirective = <T extends Directive>(directive: T, name: string) => {
