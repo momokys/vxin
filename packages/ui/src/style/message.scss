@@ -12,13 +12,14 @@
   position: absolute;
   top: 20px;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translate(-50%, 0);
   padding: 10px 20px;
   border-radius: cssVar(border, radius);
   background-color: #ffffff;
   box-shadow: 0 3px 6px -4px rgba(0, 0, 0, 0.12),
   0 6px 16px 0 rgba(0, 0, 0, 0.08),
   0 9px 28px 8px rgba(0, 0, 0, 0.05);
+  transition: top .2s cssVar(bezier);
 
   p {
     margin: 0 0 0 10px;
@@ -33,13 +34,15 @@
     }
   }
 
-  &-enter-from,
-  &-leave-to{
+  &-fade-enter-from,
+  &-fade-leave-to{
     opacity: 0;
+    transform: translate(-50%, -20px);
   }
-  &-enter-active,
-  &-leave-active{
-    transition: opacity .3s cssVar(bezier);
+
+  &-fade-enter-active,
+  &-fade-leave-active{
+    transition: transform .2s cssVar(bezier), opacity .2s cssVar(bezier);
   }
 }
 
