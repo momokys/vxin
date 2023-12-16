@@ -3,6 +3,7 @@
   "compilerOptions": {
     "sourceMap": true,
     "declaration": true,
+    "lib": ["ESNext", "ScriptHost", "DOM", "DOM.Iterable"],
   },
   "include": ["src/**/*.ts"]
 }
