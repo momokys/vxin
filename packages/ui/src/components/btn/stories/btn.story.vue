@@ -10,7 +10,7 @@
         <HstSelect
           title="status"
           v-model="state.status"
-          :options="['default', 'primary', 'success', 'warning', 'danger', 'error']"
+          :options="['default', 'primary', 'success', 'warning', 'danger']"
         />
         <HstSelect title="shape" v-model="state.shape" :options="['default', 'circle', 'round']" />
         <HstSelect title="size" v-model="state.size" :options="['mini', 'small', 'medium', 'large']" />
