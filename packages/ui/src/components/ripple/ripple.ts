@@ -12,7 +12,6 @@ export type RippleDirectiveBinding = RippleDirectiveOptions | UnwrapRef<RippleDi
 const Ripple: Directive<RippleElement, RippleDirectiveBinding> = {
   mounted(el, binding) {
     el.addEventListener('pointerup', (ev) => {
-      console.log(binding.value)
       if (!binding.value.disabled) {
         ripple(
           ev.currentTarget as HTMLElement,
