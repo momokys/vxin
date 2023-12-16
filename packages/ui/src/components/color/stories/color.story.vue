@@ -1,18 +1,15 @@
 <template>
-  <Story title="Color" :layout="{ type: 'single', iframe: true }">
-    <!--    <div v-for="color in colorList" :key="color" class="list">-->
-    <!--      <div v-for="(_, index) in seq" :key="index" class="item">-->
-    <!--        <color-block :color="color" :index="index" />-->
-    <!--        &lt;!&ndash;        <div :style="{ backgroundColor: `var(v-color-${color}-${index})` }" />&ndash;&gt;-->
-    <!--        <span>{{ `v-color-${color}-${index}` }}</span>-->
-    <!--      </div>-->
-    <!--    </div>-->
-    <div>
-      <div v-for="(_, index) in seq" :key="index" class="item">
-        <div :style="{ backgroundColor: `var(v-color-primary-${index})` }" />
-        <span>{{ `v-color-primary-${index}` }}</span>
+  <Story title="Color" :layout="{ type: 'grid', width: '100%' }">
+    <Variant title="playground">
+      <div class="list">
+        <div
+          v-for="index in 10"
+          :key="index"
+          class="item"
+          :style="style(index)"
+        />
       </div>
-    </div>
+    </Variant>
   </Story>
 </template>
 
@@ -22,7 +19,7 @@
 
 // const colorList = ['primary', 'secondary', 'success', 'warning', 'error']
 
-const seq = new Array(10)
+const style = (level: number) => ({ 'background-color': `var(v-color-primary-${level})` })
 </script>
 
 <style scoped lang="scss">
@@ -30,12 +27,9 @@ const seq = new Array(10)
   .item {
     display: flex;
     align-items: center;
-    width: 300px;
-    div {
-      width: 100px;
-      height: 40px;
-      margin-right: 16px;
-    }
+    width: 100px;
+    height: 40px;
+    margin-right: 16px;
   }
 }
 </style>
