@@ -1,5 +1,5 @@
-import { defineComponent, renderSlot } from 'vue'
-import { isArray, isNumber } from '@vxin/utils'
+import { defineComponent, renderSlot, VNode, Fragment } from 'vue'
+import { isArray, isEmpty, isNumber } from '@vxin/utils'
 import { ComponentSize } from '@/utils'
 import { useNamespace } from '@/hooks'
 import { spaceProps } from './props'
@@ -23,8 +23,12 @@ export default defineComponent({
   setup(props, { slots }) {
     const ns = useNamespace('space')
     const renderChildren = () => {
-      const children = renderSlot(slots, 'default', { key: 0 }, () => []).children
-      if ((children ?? []).length === 0) return null
+      let children = renderSlot(slots, 'default', { key: 0 }, () => []).children as VNode[]
+      if (isEmpty(children)) return null
+      if (children.length === 1 && children[0].type === Fragment) {
+        // TODO 处理 Fragment 嵌套?
+        children = children[0].children as VNode[]
+      }
       if (isArray(children)) {
         return children.map((item) => <div class={ns.e('item')}>{item}</div>)
       }
