@@ -1,5 +1,5 @@
 <template>
-  <Story title="Space" :layout="{ type: 'grid', width: 800 }">
+  <Story title="Space" :layout="{ type: 'grid', width: '100%' }">
     <Variant title="playground">
       <template #default>
         <v-space v-bind="state">
@@ -22,14 +22,14 @@
         <HstSelect
           v-model="state.justify"
           title="justify"
-          :options="{
-            start: 'start',
-            end: 'end',
-            center: 'center',
-            'space-around': 'space-around',
-            'space-between': 'space-between',
-            'space-evenly': 'space-evenly',
-          }"
+          :options="[
+            'start',
+            'end',
+            'center',
+            'space-around',
+            'space-between',
+            'space-evenly',
+          ]"
         />
         <HstSelect
           v-model="state.align"
@@ -45,12 +45,7 @@
         <HstSelect
           v-model="state.size"
           title="size"
-          :options="{
-            mini: 'mini',
-            small: 'small',
-            medium: 'medium',
-            large: 'large',
-          }"
+          :options="['small','medium','large']"
         />
         <HstCheckbox v-model="state.inline" title="inline" />
         <HstCheckbox v-model="state.wrap" title="wrap" />
@@ -62,7 +57,6 @@
 <script setup lang="ts">
 import { reactive } from 'vue'
 import { VSpace } from '@/components'
-import { HstCheckbox, HstRadio, HstSelect } from '@histoire/controls'
 
 const state = reactive<Record<string, any>>({
   direction: 'horizontal',
