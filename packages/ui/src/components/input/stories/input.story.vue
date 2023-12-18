@@ -1,5 +1,5 @@
 <template>
-  <Story title="Input/Input" :layout="{ type: 'grid', width: '100%' }">
+  <Story title="Input" :layout="{ type: 'grid', width: '100%' }">
     <Variant title="playground">
       <v-input v-bind="state" v-model="state.modelValue" />
       <template #controls>
