@@ -2,12 +2,12 @@ import Space from './space'
 import { withInstall } from '@vxin/utils'
 import '@/style/space.scss'
 
-export const VSpace = withInstall(Space)
+export default withInstall(Space)
+export const VSpace = Space
 export type { SpaceProps } from './props'
 export { spaceProps } from './props'
-export default VSpace
 
-declare module '@vue/runtime-core' {
+declare module 'vue' {
   export interface GlobalComponents {
     VSpace: typeof VSpace
   }

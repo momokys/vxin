@@ -1,4 +1,4 @@
-import { defineComponent, renderSlot, VNode, Fragment } from 'vue'
+import { defineComponent, renderSlot, VNode, Fragment, h } from 'vue'
 import { isArray, isEmpty, isNumber } from '@vxin/utils'
 import { ComponentSize } from '@/utils'
 import { useNamespace } from '@/hooks'

@@ -24,6 +24,6 @@ export const spaceProps = {
   inline: Boolean,
   wrap: Boolean,
   reverse: Boolean,
-} as const
+}
 
 export type SpaceProps = ExtractPropTypes<typeof spaceProps>
