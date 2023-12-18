@@ -1,0 +1,25 @@
+@use "common/mixins" as *;
+@use "common/var" as *;
+
+:root {
+  @include set-color-var();
+
+  @include map-css-var(size, $sizes);
+  @include map-css-var(padding, $paddings);
+  @include map-css-var(font-size, $fontSizes);
+
+  @include set-css-var(bezier, $bezier);
+  @include set-css-var(bezier-ease-out, $bezierEaseOut);
+
+  @include set-css-var(disabled-opacity, $disabledOpacity);
+
+  @include set-css-var(border-radius, $borderRadius);
+
+  @include set-css-var(z-index, $zIndex);
+
+}
+
+body {
+  font-size: 14px;
+  font-family: Helvetica, Arial, PingFangSC-Regular, Hiragino Sans GB, Microsoft YaHei, Microsoft JhengHei, serif;
+}
