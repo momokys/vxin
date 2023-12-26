@@ -12,10 +12,12 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
+import {isNil} from "@vxin/fns";
 
 const srcRef = ref<HTMLDivElement>()
 const tarRef = ref<HTMLDivElement>()
 onMounted(() => {
+  if (isNil(srcRef.value) || isNil(tarRef.value)) return
   const srcEl = srcRef.value!
   const tarEl = tarRef.value!
   srcEl.draggable = true
@@ -28,10 +30,10 @@ onMounted(() => {
   srcEl.addEventListener('dragend', (ev) => {
     console.log(ev.type)
   })
-  srcEl.addEventListener('dragenter', (ev) => {
+  tarEl.addEventListener('dragenter', (ev) => {
     console.log(ev.type)
   })
-  srcEl.addEventListener('dragover', (ev) => {
+  tarEl.addEventListener('dragover', (ev) => {
     ev.preventDefault()
     console.log(ev.type)
   })
