@@ -6,15 +6,20 @@
 @use "common/mixins" as *;
 
 @include b(scrollbar) {
-  @include set-css-var(scrollbar-height, 100%);
+  @include set-css-var(scrollbar-thumb-size, 8px);
+  @include set-css-var(scrollbar-track-size, 12px);
+  @include set-css-var(scrollbar-border-radius, 4px);
   @include css-var-from-global(scrollbar, bezier);
 }
 
 @include b(scrollbar) {
-  overflow: hidden;
+  height: 100%;
+  width: 100%;
   position: relative;
+  padding-right: cssVar(scrollbar-track-size);
 
   @include e(view) {
+    height: 100%;
     width: 100%;
     overflow: auto;
     // IE10+
@@ -27,31 +32,26 @@
 
   @include e(track) {
     position: absolute;
-    z-index: 1;
-    border-radius: 3px;
+    z-index: auto;
+    cursor: pointer;
 
     @include e(thumb) {
       position: relative;
-      border-radius: 3px;
+      border-radius: cssVar(scrollbar-border-radius);
+      margin: auto;
       background-color: #909399;
       opacity: .3;
-      cursor: pointer;
       -webkit-user-select: none;
-      transition: opacity .3s cssVar(scrollbar, bezier);
-
-      &:hover {
-        opacity: .5;
-      }
     }
 
     @include is(vertical) {
-      top: cssVar(scrollbar, gap);
-      bottom: calc(#{cssVar(scrollbar, gap)} + #{cssVar(scrollbar, thumb, width)});
-      right: cssVar(scrollbar, gap);
-      width: cssVar(scrollbar, thumb, width);
+      top: 0;
+      right: 0;
+      height: 100%;
+      width: cssVar(scrollbar-track-size);
 
       @include e(thumb) {
-        width: 100%;
+        width: cssVar(scrollbar-thumb-size);
       }
     }
 
@@ -65,14 +65,5 @@
         height: 100%;
       }
     }
-  }
-
-  &-fade-enter-from,
-  &-fade-leave-to{
-    opacity: 0;
-  }
-  &-fade-enter-active,
-  &-fade-leave-active{
-    transition: opacity .5s cssVar(scrollbar, bezier);
   }
 }
