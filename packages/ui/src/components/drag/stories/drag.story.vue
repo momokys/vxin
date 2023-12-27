@@ -12,7 +12,7 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
-import {isNil} from "@vxin/fns";
+import { isNil } from '@vxin/fns'
 
 const srcRef = ref<HTMLDivElement>()
 const tarRef = ref<HTMLDivElement>()
