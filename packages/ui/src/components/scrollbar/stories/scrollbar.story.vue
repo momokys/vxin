@@ -1,35 +1,35 @@
 <template>
-  <Story title="Scrollbar/Horizontal" :layout="{ type: 'grid', width: 400 }">
-    <Variant title="playground">
-      <template #default>
-        <div style="height: 46px">
-          <v-scrollbar v-bind="state">
-            <div class="scrollbar-demo-list row">
-              <div v-for="item in list" :key="item" class="scrollbar-demo-item">{{ item }}</div>
-            </div>
-          </v-scrollbar>
+  <Story title="Scrollbar" :layout="{ type: 'grid', width: 800 }">
+    <Variant title="vertical">
+      <v-scrollbar v-bind="state">
+        <div class="scrollbar-demo-list col">
+          <div v-for="index in 100" :key="index" class="scrollbar-demo-item">{{ index }}</div>
         </div>
-      </template>
+      </v-scrollbar>
     </Variant>
+    <Variant title="horizontal">
+      <v-scrollbar :embed="state.embed">
+        <div class="scrollbar-demo-list row">
+          <div v-for="index in 100" :key="index" class="scrollbar-demo-item">{{ index }}</div>
+        </div>
+      </v-scrollbar>
+    </Variant>
+    <template #controls>
+      <HstCheckbox title="embed" v-model="state.embed" />
+    </template>
   </Story>
 </template>
+
 <script setup lang="ts">
 import { reactive } from 'vue'
-// import { hstEvent } from 'histoire/client'
 import { VScrollbar } from '@/components'
 
-const state = reactive<Record<string, any>>({
-  gap: true,
+const state = reactive({
+  embed: false,
+  style: {
+    height: '300px',
+  },
 })
-const list = reactive<number[]>(generateItems(100))
-
-function generateItems(total: number) {
-  const items: number[] = []
-  for (let i = 1; i <= total; i++) {
-    items.push(i)
-  }
-  return items
-}
 </script>
 
 <style scoped lang="scss">

@@ -2,10 +2,10 @@ import Scrollbar from './scrollbar'
 import { withInstall } from '@vxin/utils'
 import '@/style/scrollbar.scss'
 
-export const VScrollbar = withInstall(Scrollbar)
+export const VScrollbar = Scrollbar
 export type { ScrollbarProps } from './props'
 export { scrollbarProps } from './props'
-export default VScrollbar
+export default withInstall(Scrollbar)
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {

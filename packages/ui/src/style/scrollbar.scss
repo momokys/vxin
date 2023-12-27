@@ -16,7 +16,7 @@
   height: 100%;
   width: 100%;
   position: relative;
-  padding-right: cssVar(scrollbar-track-size);
+  transition: all 0.2s cssVar(scrollbar, bezier);
 
   @include e(view) {
     height: 100%;
@@ -33,14 +33,15 @@
   @include e(track) {
     position: absolute;
     z-index: auto;
+    display: flex;
+    opacity: 0;
     cursor: pointer;
+    transition: opacity .3s cssVar(scrollbar, bezier);
 
     @include e(thumb) {
       position: relative;
       border-radius: cssVar(scrollbar-border-radius);
-      margin: auto;
-      background-color: #909399;
-      opacity: .3;
+      background-color: cssVar(color-secondary);
       -webkit-user-select: none;
     }
 
@@ -49,6 +50,8 @@
       right: 0;
       height: 100%;
       width: cssVar(scrollbar-track-size);
+      flex-direction: row;
+      justify-content: center;
 
       @include e(thumb) {
         width: cssVar(scrollbar-thumb-size);
@@ -56,14 +59,28 @@
     }
 
     @include is(horizontal) {
-      left: cssVar(scrollbar, gap);
-      right: calc(#{cssVar(scrollbar, gap)} + #{cssVar(scrollbar, thumb, width)});
-      bottom: cssVar(scrollbar, gap);
-      height: cssVar(scrollbar, thumb, width);
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: cssVar(scrollbar-track-size);
+      flex-direction: column;
+      justify-content: center;
 
       @include e(thumb) {
-        height: 100%;
+        height: cssVar(scrollbar-thumb-size);
       }
+    }
+  }
+
+  &:hover {
+    @include e(track) {
+      opacity: 1;
+    }
+  }
+
+  @include is(embed) {
+    @include e(track) {
+      opacity: 1;
     }
   }
 }
