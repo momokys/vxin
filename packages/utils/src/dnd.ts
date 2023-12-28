@@ -8,6 +8,10 @@ export class Dnd {
   public get target() {
     return this._target
   }
+  private static _dragging = false
+  public static get dragging() {
+    return Dnd._dragging
+  }
   private _lastVec: Vec2D = {
     x: 0,
     y: 0,
@@ -24,15 +28,15 @@ export class Dnd {
   public constructor(target?: HTMLElement) {
     this._handler = (ev: MouseEvent) => {
       ev.preventDefault()
-      let dragging = false
+      Dnd._dragging = false
       this._target = ev.currentTarget as HTMLElement
       this._lastVec = {
         x: ev.clientX,
         y: ev.clientY,
       }
       const onMousemove = (ev: MouseEvent) => {
-        if (!dragging) {
-          dragging = true
+        if (!Dnd._dragging) {
+          Dnd._dragging = true
           this.trigger('dragstart', ev)
         } else {
           this.trigger('drag', ev)
@@ -41,6 +45,7 @@ export class Dnd {
       const onMouseup = (ev: MouseEvent) => {
         document.removeEventListener('mouseup', onMouseup, true)
         document.removeEventListener('mousemove', onMousemove, true)
+        Dnd._dragging = false
         this.trigger('dragend', ev)
       }
       document.addEventListener('mouseup', onMouseup, true)
