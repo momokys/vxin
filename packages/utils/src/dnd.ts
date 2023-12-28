@@ -1,8 +1,13 @@
 import { Vec2D } from './types'
+import { isNil } from '@vxin/fns'
 
 type DndHook = (ev: DndEvent) => void
 
 export class Dnd {
+  private _target?: HTMLElement
+  public get target() {
+    return this._target
+  }
   private _lastVec: Vec2D = {
     x: 0,
     y: 0,
@@ -16,9 +21,10 @@ export class Dnd {
     return this._handler
   }
 
-  public constructor() {
+  public constructor(target?: HTMLElement) {
     this._handler = (ev: DragEvent) => {
       ev.preventDefault()
+      this._target = ev.currentTarget as HTMLElement
       this._lastVec = {
         x: ev.clientX,
         y: ev.clientY,
@@ -27,14 +33,19 @@ export class Dnd {
         this.trigger('drag', ev)
       }
       const onMouseup = (ev: MouseEvent) => {
-        document.removeEventListener('mouseup', onMouseup)
-        document.removeEventListener('mousemove', onMousemove)
+        document.removeEventListener('mouseup', onMouseup, true)
+        document.removeEventListener('mousemove', onMousemove, true)
         this.trigger('dragend', ev)
       }
-      document.addEventListener('mouseup', onMouseup)
-      document.addEventListener('mousemove', onMousemove)
+      document.addEventListener('mouseup', onMouseup, true)
+      document.addEventListener('mousemove', onMousemove, true)
 
       this.trigger('dragstart', ev)
+    }
+    if (!isNil(target)) {
+      this._target = target
+      target.draggable = true
+      target.addEventListener('dragstart', this._handler)
     }
   }
 
@@ -52,6 +63,12 @@ export class Dnd {
     }
     this.hooks[type]?.forEach?.((hook) => hook(ev))
   }
+
+  public destroy() {
+    if (!isNil(this._target)) {
+      this._target.removeEventListener('dragstart', this._handler)
+    }
+  }
 }
 
 type DndEventTypes = 'dragstart' | 'drag' | 'dragend' | 'dragenter' | 'dragleave' | 'dragover' | 'drop'
@@ -61,19 +78,17 @@ export class DndEvent {
   public readonly diff: Vec2D
   public readonly mouse: Vec2D
   public readonly target: HTMLElement
-  public readonly rawEv: DragEvent | MouseEvent
   constructor(type: DndEventTypes, ins: Dnd, rawEv: MouseEvent | DragEvent) {
     this.type = type
     this.ins = ins
-    this.target = rawEv.target as HTMLElement
-    this.rawEv = rawEv
+    this.target = ins.target!
     this.mouse = {
-      x: this.rawEv.clientX,
-      y: this.rawEv.clientY,
+      x: rawEv.clientX,
+      y: rawEv.clientY,
     }
     this.diff = {
-      x: this.rawEv.clientX - this.ins.lastVec.x,
-      y: this.rawEv.clientY - this.ins.lastVec.y,
+      x: rawEv.clientX - ins.lastVec.x,
+      y: rawEv.clientY - ins.lastVec.y,
     }
   }
 }
