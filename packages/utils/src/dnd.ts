@@ -16,21 +16,27 @@ export class Dnd {
     return this._lastVec
   }
   private readonly hooks: Record<DndEventTypes, DndHook[]> = {} as unknown as any
-  private readonly _handler: (ev: DragEvent) => void
+  private readonly _handler: (ev: MouseEvent) => void
   public get handler() {
     return this._handler
   }
 
   public constructor(target?: HTMLElement) {
-    this._handler = (ev: DragEvent) => {
+    this._handler = (ev: MouseEvent) => {
       ev.preventDefault()
+      let dragging = false
       this._target = ev.currentTarget as HTMLElement
       this._lastVec = {
         x: ev.clientX,
         y: ev.clientY,
       }
       const onMousemove = (ev: MouseEvent) => {
-        this.trigger('drag', ev)
+        if (!dragging) {
+          dragging = true
+          this.trigger('dragstart', ev)
+        } else {
+          this.trigger('drag', ev)
+        }
       }
       const onMouseup = (ev: MouseEvent) => {
         document.removeEventListener('mouseup', onMouseup, true)
@@ -39,13 +45,10 @@ export class Dnd {
       }
       document.addEventListener('mouseup', onMouseup, true)
       document.addEventListener('mousemove', onMousemove, true)
-
-      this.trigger('dragstart', ev)
     }
     if (!isNil(target)) {
       this._target = target
-      target.draggable = true
-      target.addEventListener('dragstart', this._handler)
+      target.addEventListener('mousedown', this._handler)
     }
   }
 
@@ -55,7 +58,7 @@ export class Dnd {
     return this
   }
 
-  public trigger(type: DndEventTypes, rawEv: DragEvent | MouseEvent) {
+  public trigger(type: DndEventTypes, rawEv: MouseEvent) {
     const ev = new DndEvent(type, this, rawEv)
     this._lastVec = {
       x: ev.mouse.x,
@@ -66,7 +69,7 @@ export class Dnd {
 
   public destroy() {
     if (!isNil(this._target)) {
-      this._target.removeEventListener('dragstart', this._handler)
+      this._target.removeEventListener('mousedown', this._handler)
     }
   }
 }
@@ -78,7 +81,7 @@ export class DndEvent {
   public readonly diff: Vec2D
   public readonly mouse: Vec2D
   public readonly target: HTMLElement
-  constructor(type: DndEventTypes, ins: Dnd, rawEv: MouseEvent | DragEvent) {
+  constructor(type: DndEventTypes, ins: Dnd, rawEv: MouseEvent) {
     this.type = type
     this.ins = ins
     this.target = ins.target!
