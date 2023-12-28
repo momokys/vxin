@@ -1,48 +1,24 @@
 <template>
   <Story title="Drag" :layout="{ type: 'grid', width: '100%' }">
     <Variant title="playground">
-      <div style="position: relative; width: 100%; height: 600px">
-        <div ref="tarRef" style="width: 400px; height: 400px; background-color: #00c48f" />
-        <div ref="srcRef" class="box" />
-        <iframe />
+      <div style="position: relative; width: 100%; height: 400px">
+        <div class="box" :style="style" @mousedown="dnd.handler" />
       </div>
     </Variant>
   </Story>
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
-import { isNil } from '@vxin/fns'
+import { computed, CSSProperties, reactive } from 'vue'
+import { Dnd, Vec3D } from '@vxin/utils'
 
-const srcRef = ref<HTMLDivElement>()
-const tarRef = ref<HTMLDivElement>()
-onMounted(() => {
-  if (isNil(srcRef.value) || isNil(tarRef.value)) return
-  const srcEl = srcRef.value!
-  const tarEl = tarRef.value!
-  srcEl.draggable = true
-  srcEl.addEventListener('dragstart', (ev) => {
-    console.log(ev.type)
-  })
-  srcEl.addEventListener('drag', (ev) => {
-    console.log(ev.type)
-  })
-  srcEl.addEventListener('dragend', (ev) => {
-    console.log(ev.type)
-  })
-  tarEl.addEventListener('dragenter', (ev) => {
-    console.log(ev.type)
-  })
-  tarEl.addEventListener('dragover', (ev) => {
-    ev.preventDefault()
-    console.log(ev.type)
-  })
-  tarEl.addEventListener('dragleave', (ev) => {
-    console.log(ev.type)
-  })
-  tarEl.addEventListener('drop', (ev) => {
-    console.log(ev.type)
-  })
+const vec = reactive<Vec3D>({ x: 0, y: 0, z: 0 })
+const style = computed<CSSProperties>(() => ({
+  transform: `translate3d(${vec.x}px, ${vec.y}px, ${vec.z}px)`,
+}))
+const dnd = new Dnd().on('drag', (ev) => {
+  vec.x += ev.diff.x
+  vec.y += ev.diff.y
 })
 </script>
 
