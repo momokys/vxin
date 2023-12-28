@@ -121,12 +121,12 @@ export default defineComponent({
         </div>
         <Transition name={ns.b('fade')}>
           <div v-show={showVThumb.value} class={[ns.e('track'), ns.is('vertical', true)]}>
-            <div class={ns.e('thumb')} style={vThumbStyle.value} draggable={'true'} onDragstart={vDnd.handler} />
+            <div class={ns.e('thumb')} style={vThumbStyle.value} onMousedown={vDnd.handler} />
           </div>
         </Transition>
         <Transition name={ns.b('fade')}>
           <div v-show={showHThumb.value} class={[ns.e('track'), ns.is('horizontal', true)]}>
-            <div class={ns.e('thumb')} style={hThumbStyle.value} draggable={'true'} onDragstart={hDnd.handler} />
+            <div class={ns.e('thumb')} style={hThumbStyle.value} onMousedown={hDnd.handler} />
           </div>
         </Transition>
       </div>
