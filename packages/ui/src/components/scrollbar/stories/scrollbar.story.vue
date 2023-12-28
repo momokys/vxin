@@ -1,34 +1,47 @@
 <template>
   <Story title="Scrollbar" :layout="{ type: 'grid', width: 800 }">
     <Variant title="vertical">
-      <v-scrollbar v-bind="state">
+      <v-scrollbar :embed="state.embed" :height="state.height">
         <div class="scrollbar-demo-list col">
           <div v-for="index in 100" :key="index" class="scrollbar-demo-item">{{ index }}</div>
+        </div>
+      </v-scrollbar>
+    </Variant>
+    <Variant title="maxHeight">
+      <v-btn-group>
+        <v-btn label="Add Item" status="success" @click="state.itemCount++" />
+        <v-btn label="Delete Item" status="danger" @click="state.itemCount--"/>
+      </v-btn-group>
+      <v-scrollbar :embed="state.embed" :max-height="state.maxHeight">
+        <div class="scrollbar-demo-list col">
+          <div v-for="index in state.itemCount" :key="index" class="scrollbar-demo-item">{{ index }}</div>
         </div>
       </v-scrollbar>
     </Variant>
     <Variant title="horizontal">
       <v-scrollbar :embed="state.embed">
         <div class="scrollbar-demo-list row">
-          <div v-for="index in 100" :key="index" class="scrollbar-demo-item">{{ index }}</div>
+          <div v-for="index in 10" :key="index" class="scrollbar-demo-item">{{ index }}</div>
         </div>
       </v-scrollbar>
     </Variant>
     <template #controls>
       <HstCheckbox title="embed" v-model="state.embed" />
+      <HstSlider title="height" v-model="state.height" :step="1" :min="100" :max="400" />
+      <HstSlider title="max-height" v-model="state.maxHeight" :step="1" :min="100" :max="400" />
     </template>
   </Story>
 </template>
 
 <script setup lang="ts">
 import { reactive } from 'vue'
-import { VScrollbar } from '@/components'
+import { VBtnGroup, VBtn, VScrollbar, ScrollbarProps } from '@/components'
 
-const state = reactive({
+const state = reactive<ScrollbarProps & { itemCount: number }>({
   embed: false,
-  style: {
-    height: '300px',
-  },
+  height: 200,
+  maxHeight: 200,
+  itemCount: 3,
 })
 </script>
 

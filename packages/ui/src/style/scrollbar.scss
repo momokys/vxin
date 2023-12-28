@@ -13,8 +13,6 @@
 }
 
 @include b(scrollbar) {
-  height: 100%;
-  width: 100%;
   position: relative;
   transition: all 0.2s cssVar(scrollbar, bezier);
 
@@ -34,14 +32,14 @@
     position: absolute;
     z-index: auto;
     display: flex;
-    opacity: 0;
     cursor: pointer;
-    transition: opacity .3s cssVar(scrollbar, bezier);
+    pointer-events: none;
 
     @include e(thumb) {
       position: relative;
       border-radius: cssVar(scrollbar-border-radius);
       background-color: cssVar(color-secondary);
+      pointer-events: all;
       -webkit-user-select: none;
     }
 
@@ -72,15 +70,18 @@
     }
   }
 
-  &:hover {
+  @include is(embed) {
     @include e(track) {
-      opacity: 1;
+      pointer-events: all;
     }
   }
 
-  @include is(embed) {
-    @include e(track) {
-      opacity: 1;
-    }
+  &-fade-enter-from,
+  &-fade-leave-to{
+    opacity: 0;
+  }
+  &-fade-enter-active,
+  &-fade-leave-active{
+    transition: opacity .5s cssVar(scrollbar, bezier);
   }
 }
