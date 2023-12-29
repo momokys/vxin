@@ -2,31 +2,36 @@
   <Story title="Drag" :layout="{ type: 'grid', width: '100%' }">
     <Variant title="playground">
       <div style="position: relative; width: 100%; height: 400px">
-        <div class="box" :style="style" @mousedown="dnd.handler" />
+        <div class="box" :style="{ transform: matrix3d }" @mousedown="dnd.handler" />
       </div>
     </Variant>
   </Story>
 </template>
 
 <script setup lang="ts">
-import { computed, CSSProperties, reactive } from 'vue'
-import { Dnd, Vec3D } from '@vxin/utils'
+import { ref } from 'vue'
+import { Dnd, Transform, Vec2D } from '@vxin/utils'
 
-const vec = reactive<Vec3D>({ x: 0, y: 0, z: 0 })
-const style = computed<CSSProperties>(() => ({
-  transform: `translate3d(${vec.x}px, ${vec.y}px, ${vec.z}px)`,
-}))
+const t = new Transform()
+const matrix3d = ref<string>(t.rotateZ(Math.PI / 2).css())
 const dnd = new Dnd().on('drag', (ev) => {
-  vec.x += ev.diff.x
-  vec.y += ev.diff.y
+  matrix3d.value = t.translate(ev.diff.x, ev.diff.y).css()
 })
+
+const v = new Vec2D(1, 1)
+console.log(Transform.translate(1).apply(v).toString())
 </script>
 
 <style scoped lang="scss">
 .box {
-  //position: absolute;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-top: -50px;
+  margin-left: -50px;
   width: 100px;
   height: 100px;
+  transform-origin: 50% 50%;
   background-color: #3a7afe;
 }
 </style>
