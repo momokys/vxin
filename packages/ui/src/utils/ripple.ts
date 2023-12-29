@@ -1,4 +1,4 @@
-import { Point } from '@vxin/utils'
+import { Position } from '@vxin/utils'
 
 export interface RippleOptions {
   opacity?: string | number
@@ -14,7 +14,7 @@ const defaultOpts: RippleOptions = {
   duration: 300,
 }
 
-export const ripple = (target: HTMLElement, c: Point, opts?: RippleOptions) => {
+export const ripple = (target: HTMLElement, c: Position, opts?: RippleOptions) => {
   const _opts = { ...defaultOpts, ...opts } as Required<RippleOptions>
   const wrapEl = createRippleWrapEl()
   const rippleEl = createRippleEl(target, c, _opts as any)
@@ -31,7 +31,7 @@ export const ripple = (target: HTMLElement, c: Point, opts?: RippleOptions) => {
     rippleEl.style.opacity = `${_opts.opacity}`
   }, 100)
 }
-const createRippleEl = (target: HTMLElement, c: Point, opts: Required<RippleOptions>) => {
+const createRippleEl = (target: HTMLElement, c: Position, opts: Required<RippleOptions>) => {
   const d = maxR(target, c) * 2
 
   const rect = target.getBoundingClientRect()
@@ -65,7 +65,7 @@ const createRippleWrapEl = () => {
   })
   return wrapEl
 }
-const maxR = (target: HTMLElement, c: Point) => {
+const maxR = (target: HTMLElement, c: Position) => {
   let r = 0
   const rect = target.getBoundingClientRect()
   const ponitList = [
