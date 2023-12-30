@@ -20,12 +20,9 @@ export class Transform {
     return t
   }
   public translate(tx = 0, ty = 0, tz = 0) {
-    this._matrix = new Matrix([4, 4], [
-      1, 0, 0, tx,
-      0, 1, 0, ty,
-      0, 0, 1, tz,
-      0, 0, 0, 1,
-    ]).multiply(this._matrix)
+    this._matrix.set([0, 3], this._matrix.get([0, 3]) + tx)
+    this._matrix.set([1, 3], this._matrix.get([1, 3]) + ty)
+    this._matrix.set([2, 3], this._matrix.get([2, 3]) + tz)
     return this
   }
   public translateX(t = 0) {
@@ -80,7 +77,6 @@ export class Transform {
   public rotateZ(rad: number) {
     const cos = Math.cos(rad)
     const sin = Math.sin(rad)
-    console.log(cos, sin)
     this._matrix = new Matrix([4, 4], [
       cos, -sin, 0, 0,
       sin, cos, 0, 0,
