@@ -1,4 +1,4 @@
-import { Vec2D } from './types'
+import { Position } from './types'
 import { isNil } from '@vxin/fns'
 
 type DndHook = (ev: DndEvent) => void
@@ -12,7 +12,7 @@ export class Dnd {
   public static get dragging() {
     return Dnd._dragging
   }
-  private _lastVec: Vec2D = {
+  private _lastVec: Position = {
     x: 0,
     y: 0,
   }
@@ -83,8 +83,8 @@ type DndEventTypes = 'dragstart' | 'drag' | 'dragend' | 'dragenter' | 'dragleave
 export class DndEvent {
   public readonly type: DndEventTypes
   public readonly ins: Dnd
-  public readonly diff: Vec2D
-  public readonly mouse: Vec2D
+  public readonly diff: Position
+  public readonly mouse: Position
   public readonly target: HTMLElement
   constructor(type: DndEventTypes, ins: Dnd, rawEv: MouseEvent) {
     this.type = type
