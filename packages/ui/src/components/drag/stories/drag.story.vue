@@ -10,16 +10,13 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { Dnd, Transform, Vec2D } from '@vxin/utils'
+import { Dnd, Transform } from '@vxin/utils'
 
 const t = new Transform()
-const matrix3d = ref<string>(t.rotateZ(Math.PI / 2).css())
+const matrix3d = ref<string>(t.rotateZ(Math.PI / 4).css())
 const dnd = new Dnd().on('drag', (ev) => {
   matrix3d.value = t.translate(ev.diff.x, ev.diff.y).css()
 })
-
-const v = new Vec2D(1, 1)
-console.log(Transform.translate(1).apply(v).toString())
 </script>
 
 <style scoped lang="scss">
