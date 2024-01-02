@@ -13,7 +13,17 @@
   width: 100vw;
   height: 100vh;
   overflow: auto;
+
   @include b(modal) {
+    @include set-css-var(modal-x, 0);
+    @include set-css-var(modal-y, 0);
+    @include set-css-var(modal-width, 520px);
+    @include set-css-var(modal-height, auto);
+  }
+
+  @include b(modal) {
+    width: cssVar(modal-width);
+    height: cssVar(modal-height);
     position: relative;
     display: flex;
     flex-direction: column;
@@ -22,16 +32,18 @@
                 0 6px 16px 0 rgba(0, 0, 0, 0.08),
                 0 9px 28px 8px rgba(0, 0, 0, 0.05);
     background-color: #ffffff;
-    transform-origin: 50% 50%;
-    transition: width 0.2s, height 0.2s, left 0.2s, top 0.2s, margin 0.2s;
-
+    transform: scale(1) translate3d(cssVar(modal-x), cssVar(modal-y), 0);
+    transition: width .2s, height .2s, margin .2s, transform .2s;
 
     @include is(fullscreen) {
       margin: 0 auto;
     }
 
-    @include is(dragging) {
+    @include is-and(draggable, dragging) {
       transition: none;
+      @include e(header) {
+        cursor: move;
+      }
     }
 
     @include e(header) {
@@ -43,7 +55,6 @@
       width: 100%;
       padding-left: 16px;
       padding-right: 5px;
-      cursor: move;
 
       @include e(title) {
         color: #333639;
@@ -86,12 +97,11 @@
     background-color: rgba(0, 0, 0, .4);
   }
 
-
   &-enter-from,
   &-leave-to {
     @include b(modal) {
       opacity: 0;
-      transform: scale(0);
+      transform: scale(0) translate3d(cssVar(modal-x), cssVar(modal-y), 0);
     }
     @include b(modal, mask) {
       opacity: 0;
