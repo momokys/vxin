@@ -11,6 +11,14 @@ export const modalProps = {
   zIndex: Number,
   title: String,
   fullscreen: Boolean,
+  fullscreenEnabled: {
+    type: Boolean,
+    default: true,
+  },
+  draggable: {
+    type: Boolean,
+    default: true,
+  },
   isFunction: Boolean,
   appendToBody: {
     type: Boolean,
@@ -19,4 +27,4 @@ export const modalProps = {
   destroy: Function as PropType<() => void>,
 }
 
-export type ModalProps = ExtractPropTypes<typeof modalProps>
+export type ModalProps = Partial<ExtractPropTypes<typeof modalProps>>

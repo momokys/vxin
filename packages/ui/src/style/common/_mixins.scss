@@ -78,10 +78,10 @@ $B: '';
     } @else {
       $state: $state + '.' + $state-prefix + nth($states, $index);
     }
-    @at-root {
-      &#{$state} {
-        @content;
-      }
+  }
+  @at-root {
+    &#{$state} {
+      @content;
     }
   }
 }

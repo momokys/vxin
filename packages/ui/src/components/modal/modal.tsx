@@ -1,182 +1,138 @@
-import {
-  defineComponent,
-  Transition,
-  Teleport,
-  ref,
-  nextTick,
-  watchEffect,
-  computed,
-  CSSProperties,
-  watch,
-  h,
-} from 'vue'
-import { addunit, isUndefined } from '@vxin/utils'
-import { Position, useDrag, useEventListener } from '@vxin/hooks'
+import { defineComponent, Transition, Teleport, ref, h, computed, CSSProperties, onBeforeUnmount, reactive } from 'vue'
 import { Close, FullScreen, Minus } from '@vxin/icons'
 import { VBtn } from '@/components'
 import { useNamespace } from '@/hooks'
 import { modalProps } from './props'
+import { useModelState } from '@vxin/hooks'
+import { addunit, Dnd, isFunction, Position } from '@vxin/utils'
 
 export default defineComponent({
   name: 'VModal',
   props: modalProps,
+  emits: ['update:visible', 'update:fullscreen', 'opened', 'closed'],
   setup(props, { slots, emit, expose }) {
     const ns = useNamespace('modal')
     const elRef = ref<HTMLElement>()
-    const visible = ref<boolean>(false)
-    const fullscreen = ref<boolean>(props.fullscreen)
-    const dragging = ref<boolean>(false)
-    const cw = ref<number>(document.documentElement.clientWidth)
-    const ch = ref<number>(document.documentElement.clientHeight)
-    // 起点
-    const o: Position = { x: 0, y: 0 }
-    const min: Position = { x: 0, y: 0 }
-    const max: Position = { x: 0, y: 0 }
-    const [p, handleDrag] = useDrag(elRef, {
-      relative: true,
-      bound: () => {
-        const [min, max] = computeInterval()
-        return {
-          minX: min.x,
-          minY: min.y,
-          maxX: max.x,
-          maxY: max.y,
-        }
-      },
-      draggable: () => !fullscreen.value && visible.value,
-      hooks: {
-        start: () => {
-          dragging.value = true
-        },
-        end: () => {
-          dragging.value = false
-        },
-      },
-    })
+    const visible = useModelState(props, emit, 'visible')
+    const dragging = ref(false)
+    const isFullscreen = useModelState(props, emit, 'fullscreen')
+
+    const pos = reactive<Position>({ x: 0, y: 0 })
+    const width = ref<string>(addunit(props.width ?? '', 'px'))
+    const height = ref<string>(addunit(props.height ?? '', 'px'))
+    // 原点坐标
+    let ox = 0
+    let oy = 0
+
     const style = computed<CSSProperties>(() => ({
-      left: (fullscreen.value ? 0 : p.x) + 'px',
-      top: (fullscreen.value ? 0 : p.y) + 'px',
-      width: fullscreen.value ? '100%' : !isUndefined(props.width) ? addunit(props.width!, 'px') : '50%',
-      height: fullscreen.value ? '100%' : !isUndefined(props.height) ? addunit(props.height!, 'px') : '',
+      [ns.cssVarName('x')]: isFullscreen.value ? '0' : `${pos.x}px`,
+      [ns.cssVarName('y')]: isFullscreen.value ? '0' : `${pos.y}px`,
+      [ns.cssVarName('width')]: isFullscreen.value ? '100vw' : width.value,
+      [ns.cssVarName('height')]: isFullscreen.value ? '100vh' : height.value,
     }))
-    const computeInterval = () => {
-      const rect = elRef.value!.getBoundingClientRect()
-      min.x = -o.x
-      min.y = -o.y
-      max.x = cw.value - rect.width - o.x
-      max.y = ch.value - rect.height - o.y
-      return [min, max] as const
-    }
-    const computeOrigin = () => {
-      const rect = elRef.value!.getBoundingClientRect()
-      o.x = rect.x
-      o.y = rect.y
-    }
-    const open = async () => {
-      if (props.isFunction) {
-        visible.value = true
-        await nextTick()
-        p.x = 0
-        p.y = 0
-        fullscreen.value = props.fullscreen
-      } else {
-        // TODO
-      }
-    }
-    const close = async () => {
-      if (props.isFunction) {
-        visible.value = false
-        await nextTick()
-        props.destroy?.()
-      } else {
-        emit('update:visible', false)
-      }
-    }
-    const toggleFullscreen = () => {
-      fullscreen.value = !fullscreen.value
-    }
-    const cancelFullscreenEffect = () => {
-      fullscreen.value = false
-    }
 
-    useEventListener(window, 'resize', () => {
-      const lastCh = ch.value
+    const dnd = new Dnd()
+      .on('dragstart', () => (dragging.value = true))
+      .on('dragend', () => (dragging.value = false))
+      .on('drag', (ev) => {
+        if (!props.draggable) return
 
-      cw.value = document.documentElement.clientWidth
-      ch.value = document.documentElement.clientHeight
+        pos.x += ev.diff.x
+        pos.y += ev.diff.y
 
-      const rect = elRef.value!.getBoundingClientRect()
+        const rect = elRef.value!.getBoundingClientRect()
+        // 模态窗宽高
+        const w = rect.width
+        const h = rect.height
+        // 模态窗绝对坐标
+        const ax = pos.x + ox
+        const ay = pos.y + oy
+        // 模态窗最大绝对坐标
+        const maxX = document.documentElement.offsetWidth - w
+        const maxY = document.documentElement.offsetHeight - h
 
-      o.x = cw.value / 2 - rect.width / 2
-      o.y = (o.y / lastCh) * ch.value
-
-      computeInterval()
-
-      p.x = p.x < min.x ? min.x : p.x
-      p.y = p.y < min.y ? min.y : p.y
-    })
-
-    if (!props.isFunction) {
-      watchEffect(async () => {
-        visible.value = props.visible
-        if (props.visible) {
-          await nextTick()
-          p.x = 0
-          p.y = 0
-          fullscreen.value = props.fullscreen
+        if (ax <= 0) {
+          pos.x = -ox
+        } else if (ax >= maxX) {
+          pos.x = maxX - ox
         }
+        if (ay <= 0) {
+          pos.y = -oy
+        } else if (ay >= maxY) {
+          pos.y = maxY - oy
+        }
+      })
+
+    const ins = {
+      fullscreen() {
+        isFullscreen.value = !isFullscreen.value
+      },
+      close() {
+        visible.value = false
+      },
+    }
+    expose(ins)
+
+    const opened = () => {
+      const cs = getComputedStyle(elRef.value!)
+      height.value = height.value || cs.height
+      width.value = width.value || cs.width
+
+      const rect = elRef.value!.getBoundingClientRect()
+      ox = rect.x
+      oy = rect.y
+
+      emit('opened')
+    }
+    const closed = () => {
+      pos.x = 0
+      pos.y = 0
+      isFullscreen.value = false
+      emit('closed')
+    }
+
+    if (isFunction(props.destroy)) {
+      onBeforeUnmount(() => {
+        props.destroy?.()
       })
     }
 
-    watch(
-      () => p,
-      () => {
-        p.x = p.x < min.x ? min.x : p.x
-        p.y = p.y < min.y ? min.y : p.y
-        // p.x = p.x < min.x ? min.x : p.x > max.x ? max.x : p.x
-        // p.y = p.y < min.y ? min.y : p.y > max.y ? max.y : p.y
-      },
-      { deep: true },
-    )
-
-    expose({
-      open,
-      close,
-      computeInterval,
-    })
-
     return () => (
       <Teleport to={'body'} disabled={!props.appendToBody}>
-        <Transition
-          name={ns.b('wrap')}
-          duration={300}
-          onAfterEnter={computeOrigin}
-          onAfterLeave={cancelFullscreenEffect}
-        >
+        <Transition name={ns.b('wrap')} duration={300} onAfterEnter={opened} onAfterLeave={closed}>
           <div v-show={visible.value} class={ns.b('wrap')} style={{ zIndex: props.zIndex }}>
-            <div v-show={props.shade} class={ns.b('mask')} onClick={close} />
+            <div v-show={props.shade} class={ns.b('mask')} onClick={ins.close} />
             <div
               ref={elRef}
-              class={[ns.b(), ns.is('fullscreen', fullscreen.value), ns.is('dragging', dragging.value)]}
               style={style.value}
+              class={[
+                ns.b(),
+                ns.is('fullscreen', isFullscreen.value),
+                ns.is('draggable', props.draggable),
+                ns.is('dragging', dragging.value),
+              ]}
             >
-              <div class={ns.e('header')} onMousedown={handleDrag}>
+              <header class={ns.e('header')} onMousedown={dnd.handler}>
                 <div class={ns.e('title')}>{props.title ?? '标题'}</div>
                 <div class={ns.e('toolbar')}>
-                  <VBtn
-                    type={'text'}
-                    size={'small'}
-                    icon={fullscreen.value ? Minus : FullScreen}
-                    onClick={toggleFullscreen}
-                  />
-                  <VBtn type={'text'} icon={Close} size={'small'} onClick={close} />
+                  {props.fullscreenEnabled ? (
+                    <VBtn
+                      type={'text'}
+                      size={'small'}
+                      icon={isFullscreen.value ? Minus : FullScreen}
+                      onClick={ins.fullscreen}
+                    />
+                  ) : (
+                    ''
+                  )}
+                  <VBtn type={'text'} icon={Close} size={'small'} onClick={ins.close} />
                 </div>
-              </div>
+              </header>
               <div class={ns.e('body')}>{slots.default?.()}</div>
-              <div class={ns.e('footer')}>
+              <footer class={ns.e('footer')}>
                 <VBtn label={'取消'} status={'default'} />
                 <VBtn label={'确定'} status={'primary'} />
-              </div>
+              </footer>
             </div>
           </div>
         </Transition>
