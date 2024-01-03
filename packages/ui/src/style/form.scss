@@ -1,0 +1,40 @@
+@use "sass:map";
+@use "sass:math";
+@use "common/config" as *;
+@use "common/var" as *;
+@use "common/fun" as *;
+@use "common/mixins" as *;
+
+@include b(form) {
+
+}
+
+@include b(form-item) {
+  @include set-css-var(form-item-label-width, auto);
+}
+
+@include b(form-item) {
+  display: flex;
+  align-items: center;
+  margin-bottom: 22px;
+
+  @include e(label) {
+    align-self: self-start;
+    padding-right: 8px;
+    width: cssVar(form-item-label-width);
+  }
+
+  @each $size in $sizeList {
+    @include m($size) {
+      @include e(label) {
+        height: cssVar(size-#{$size});
+        line-height: cssVar(size-#{$size});
+      }
+    }
+  }
+
+  @include e(content) {
+    flex: 1;
+    display: flex;
+  }
+}
