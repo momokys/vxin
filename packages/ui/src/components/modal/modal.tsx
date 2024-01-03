@@ -13,9 +13,9 @@ export default defineComponent({
   setup(props, { slots, emit, expose }) {
     const ns = useNamespace('modal')
     const elRef = ref<HTMLElement>()
-    const visible = useModelState(props, emit, 'visible')
+    const visible = useModelState(props, 'visible')
     const dragging = ref(false)
-    const isFullscreen = useModelState(props, emit, 'fullscreen')
+    const isFullscreen = useModelState(props, 'fullscreen')
 
     const pos = reactive<Position>({ x: 0, y: 0 })
     const width = ref<string>(addunit(props.width ?? '', 'px'))
@@ -25,10 +25,10 @@ export default defineComponent({
     let oy = 0
 
     const style = computed<CSSProperties>(() => ({
-      [ns.cssVarName('x')]: isFullscreen.value ? '0' : `${pos.x}px`,
-      [ns.cssVarName('y')]: isFullscreen.value ? '0' : `${pos.y}px`,
-      [ns.cssVarName('width')]: isFullscreen.value ? '100vw' : width.value,
-      [ns.cssVarName('height')]: isFullscreen.value ? '100vh' : height.value,
+      [ns.cssVarName('x')]: props.fullscreenEnabled && isFullscreen.value ? '0' : `${pos.x}px`,
+      [ns.cssVarName('y')]: props.fullscreenEnabled && isFullscreen.value ? '0' : `${pos.y}px`,
+      [ns.cssVarName('width')]: props.fullscreenEnabled && isFullscreen.value ? '100vw' : width.value,
+      [ns.cssVarName('height')]: props.fullscreenEnabled && isFullscreen.value ? '100vh' : height.value,
     }))
 
     const dnd = new Dnd()
