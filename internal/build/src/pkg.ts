@@ -2,7 +2,7 @@ import { readJSON } from 'fs-extra'
 import { pkgRoot } from './process'
 import { isObject } from '@vxin/fns'
 
-export const getPackgeJson = async () => {
+export const getPackageJson = async () => {
   return await readJSON(pkgRoot, './package.json')
 }
 
