@@ -17,11 +17,26 @@
   display: flex;
   align-items: center;
   margin-bottom: 22px;
+  width: 100%;
 
   @include e(label) {
     align-self: self-start;
     padding-right: 8px;
     width: cssVar(form-item-label-width);
+    text-align: left;
+  }
+
+  @each $align in (left, right, top) {
+    @include m($align) {
+      @if($align != top) {
+        @include e(label) {
+          text-align: $align;
+        }
+      } @else {
+        flex-direction: column;
+        align-items: unset;
+      }
+    }
   }
 
   @each $size in $sizeList {
