@@ -1,8 +1,8 @@
 import { computed, defineComponent, h, ref } from 'vue'
 import { Close } from '@vxin/icons'
-import { isEmpty, isFunction, isNumber } from '@vxin/utils'
-import { useNamespace, useGlobalConfig } from '@/hooks'
-import { VBtn } from '@/components'
+import { isEmpty, isFunction, isNil, isNumber } from '@vxin/utils'
+import { useNamespace } from '@/hooks'
+import { useFormSize, useFormDisabled, useFormReadonly, VBtn, useForm } from '@/components'
 import { inputProps } from './props'
 
 export default defineComponent({
@@ -12,8 +12,11 @@ export default defineComponent({
   setup(props, { emit, slots }) {
     const ns = useNamespace('input')
     const inputRef = ref<HTMLInputElement>()
-    const globalConfigSize = useGlobalConfig('size')
-    const size = computed(() => props.size ?? globalConfigSize.value)
+    const size = useFormSize()
+    const readonly = useFormReadonly()
+    const disabled = useFormDisabled()
+    const [, formItem] = useForm()
+    const isFull = computed(() => !isNil(formItem) || props.full)
     const inputLen = computed(() => strLen(props.modelValue, props.wordLen))
     const isError = computed(
       () => props.error || (isNumber(props.maxLen) && props.allowOver && inputLen.value > props.maxLen),
@@ -59,7 +62,7 @@ export default defineComponent({
       emit('change', ev)
     }
     const onClear = () => {
-      if (props.readonly || props.disabled) return
+      if (readonly.value || disabled.value) return
       emit('update:modelValue', '')
     }
 
@@ -84,10 +87,10 @@ export default defineComponent({
         class={[
           ns.b('wrap'),
           ns.is('focus', isFocus.value),
-          ns.is('readonly', props.readonly),
-          ns.is('disabled', props.disabled),
+          ns.is('readonly', readonly.value),
+          ns.is('disabled', disabled.value),
           ns.is('error', isError.value),
-          ns.is('full', props.full),
+          ns.is('full', isFull.value),
           ns.is('empty', isEmpty(props.modelValue)),
         ]}
         onMousedown={onMousedown}
@@ -100,8 +103,8 @@ export default defineComponent({
           type={props.type ?? 'text'}
           value={props.modelValue}
           placeholder={props.placeholder}
-          disabled={props.disabled}
-          readonly={props.readonly}
+          disabled={disabled.value}
+          readonly={readonly.value}
           class={[ns.b(), ns.m(size.value)]}
           onInput={onInput}
           onChange={onChange}

@@ -11,8 +11,14 @@ export const inputProps = {
   showWordLimit: Boolean,
   allowOver: Boolean,
   clearable: Boolean,
-  disabled: Boolean,
-  readonly: Boolean,
+  disabled: {
+    type: Boolean,
+    default: undefined,
+  },
+  readonly: {
+    type: Boolean,
+    default: undefined,
+  },
   error: Boolean,
   full: {
     type: [Boolean, undefined] as PropType<boolean>,
