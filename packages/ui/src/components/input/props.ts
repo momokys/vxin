@@ -21,7 +21,7 @@ export const inputProps = {
   },
   error: Boolean,
   full: {
-    type: [Boolean, undefined] as PropType<boolean>,
+    type: Boolean,
     default: undefined,
   },
 }

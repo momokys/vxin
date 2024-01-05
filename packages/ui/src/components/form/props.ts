@@ -1,6 +1,7 @@
-import { PropType } from 'vue'
+import { ExtractPropTypes, PropType } from 'vue'
 import { FormLabelAlign } from './types'
 import { ComponentSize } from '@/utils'
+import { Dict } from '@vxin/utils'
 
 const formCommonProps = () => ({
   labelWidth: [String, Number],
@@ -18,10 +19,13 @@ const formCommonProps = () => ({
 
 export const formProps = {
   ...formCommonProps(),
+  model: Object as PropType<Dict>,
 }
+export type FormProps = ExtractPropTypes<typeof formProps>
 
-export const formItemProps = {
+export const fieldProps = {
   ...formCommonProps(),
-  field: String,
+  name: String,
   label: String,
 }
+export type FieldProps = ExtractPropTypes<typeof fieldProps>

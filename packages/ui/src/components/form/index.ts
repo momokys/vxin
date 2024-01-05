@@ -1,13 +1,14 @@
 import Form from './Form'
-import Item from './FormItem'
+import Field from './Field'
 import { withInstall } from '@vxin/utils'
 
 import '@/style/form.scss'
 
 export default withInstall(Form, {
-  Item,
+  Field,
 })
 export const VForm = Form
-export const VFormItem = Item
+export const VField = Field
+export * from './props'
 export * from './hooks/use-form'
 export * from './hooks/use-form-common'

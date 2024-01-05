@@ -4,6 +4,7 @@ import { isEmpty, isFunction, isNil, isNumber } from '@vxin/utils'
 import { useNamespace } from '@/hooks'
 import { useFormSize, useFormDisabled, useFormReadonly, VBtn, useForm } from '@/components'
 import { inputProps } from './props'
+import { useVModel } from '@vxin/hooks'
 
 export default defineComponent({
   name: 'VInput',
@@ -12,12 +13,13 @@ export default defineComponent({
   setup(props, { emit, slots }) {
     const ns = useNamespace('input')
     const inputRef = ref<HTMLInputElement>()
+    const modelValue = useVModel(props, 'modelValue', true)
     const size = useFormSize()
     const readonly = useFormReadonly()
     const disabled = useFormDisabled()
     const [, formItem] = useForm()
-    const isFull = computed(() => !isNil(formItem) || props.full)
-    const inputLen = computed(() => strLen(props.modelValue, props.wordLen))
+    const isFull = computed(() => (isNil(props.full) ? !isNil(formItem) : props.full))
+    const inputLen = computed(() => strLen(modelValue.value, props.wordLen))
     const isError = computed(
       () => props.error || (isNumber(props.maxLen) && props.allowOver && inputLen.value > props.maxLen),
     )
@@ -48,9 +50,9 @@ export default defineComponent({
     const update = () => {
       let input: string | undefined = inputRef.value!.value
       if (!props.allowOver && isNumber(props.maxLen)) {
-        input = strLen(input, props.wordLen) <= props.maxLen ? input : props.modelValue ?? ''
+        input = strLen(input, props.wordLen) <= props.maxLen ? input : modelValue.value ?? ''
       }
-      emit('update:modelValue', input)
+      modelValue.value = input
       inputRef.value!.value = input
     }
     const onInput = () => {
@@ -63,7 +65,7 @@ export default defineComponent({
     }
     const onClear = () => {
       if (readonly.value || disabled.value) return
-      emit('update:modelValue', '')
+      modelValue.value = ''
     }
 
     const ClearBtn = () => (
@@ -72,7 +74,7 @@ export default defineComponent({
         icon={Close}
         size={'small'}
         shape={'circle'}
-        disabled={isEmpty(props.modelValue)}
+        disabled={isEmpty(modelValue.value)}
         class={[ns.e('clear-btn')]}
         onClick={onClear}
       />
@@ -91,7 +93,7 @@ export default defineComponent({
           ns.is('disabled', disabled.value),
           ns.is('error', isError.value),
           ns.is('full', isFull.value),
-          ns.is('empty', isEmpty(props.modelValue)),
+          ns.is('empty', isEmpty(modelValue.value)),
         ]}
         onMousedown={onMousedown}
         onMouseup={onMouseup}
@@ -100,8 +102,9 @@ export default defineComponent({
         {isFunction(slots.prefix) ? <span class={ns.e('prefix')}>{slots.prefix()}</span> : ''}
         <input
           ref={inputRef}
+          id={formItem?.id}
           type={props.type ?? 'text'}
-          value={props.modelValue}
+          value={modelValue.value}
           placeholder={props.placeholder}
           disabled={disabled.value}
           readonly={readonly.value}

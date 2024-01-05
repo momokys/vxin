@@ -18,38 +18,38 @@
     </Variant>
     <Variant title="status">
       <div>
-        <v-input v-model="state.modelValue" class="mb-1" full readonly />
-        <v-input v-model="state.modelValue" class="mb-1" full disabled />
-        <v-input v-model="state.modelValue" class="mb-1" full error />
+        <v-input class="mb-1" full readonly />
+        <v-input class="mb-1" full disabled />
+        <v-input class="mb-1" full error />
       </div>
     </Variant>
     <Variant title="size">
       <div>
-        <v-input v-model="state.modelValue" size="mini" class="mb-1" full />
-        <v-input v-model="state.modelValue" size="small" class="mb-1" full />
-        <v-input v-model="state.modelValue" size="medium" class="mb-1" full />
-        <v-input v-model="state.modelValue" size="large" class="mb-1" full />
+        <v-input size="mini" class="mb-1" full />
+        <v-input size="small" class="mb-1" full />
+        <v-input size="medium" class="mb-1" full />
+        <v-input size="large" class="mb-1" full />
       </div>
     </Variant>
     <Variant title="word limit">
       <div>
-        <v-input v-model="state.modelValue" :max-len="10" show-word-limit class="mb-1" full />
-        <v-input v-model="state.modelValue" :max-len="10" show-word-limit allow-over class="mb-1" full />
+        <v-input :max-len="10" show-word-limit class="mb-1" full />
+        <v-input :max-len="10" show-word-limit allow-over class="mb-1" full />
       </div>
     </Variant>
     <Variant title="prefix or suffix">
       <div>
-        <v-input v-model="state.modelValue" class="mb-1" full>
+        <v-input class="mb-1" full>
           <template #prefix>
             <span>+86</span>
           </template>
         </v-input>
-        <v-input v-model="state.modelValue" class="mb-1" full>
+        <v-input class="mb-1" full>
           <template #suffix>
             <span>.00</span>
           </template>
         </v-input>
-        <v-input v-model="state.modelValue" class="mb-1" full>
+        <v-input class="mb-1" full>
           <template #suffix>
             <v-btn icon="Search" type="text" shape="circle" size="mini" />
           </template>
@@ -57,7 +57,7 @@
       </div>
     </Variant>
     <Variant title="password">
-      <v-input v-model="state.modelValue" type="password" />
+      <v-input type="password" />
     </Variant>
   </Story>
 </template>
