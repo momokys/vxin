@@ -3,7 +3,7 @@ import { Close, FullScreen, Minus } from '@vxin/icons'
 import { VBtn } from '@/components'
 import { useNamespace } from '@/hooks'
 import { modalProps } from './props'
-import { useModelState } from '@vxin/hooks'
+import { useVModel } from '@vxin/hooks'
 import { addunit, Dnd, isFunction, Position } from '@vxin/utils'
 
 export default defineComponent({
@@ -13,9 +13,9 @@ export default defineComponent({
   setup(props, { slots, emit, expose }) {
     const ns = useNamespace('modal')
     const elRef = ref<HTMLElement>()
-    const visible = useModelState(props, 'visible')
+    const visible = useVModel(props, 'visible', true)
     const dragging = ref(false)
-    const isFullscreen = useModelState(props, 'fullscreen')
+    const isFullscreen = useVModel(props, 'fullscreen', true)
 
     const pos = reactive<Position>({ x: 0, y: 0 })
     const width = ref<string>(addunit(props.width ?? '', 'px'))
