@@ -10,13 +10,13 @@ export const isFunction = (target: any): target is (...args: any) => any => {
   return typeof target === 'function'
 }
 export const isUndefined = (target: any): target is undefined => {
-  return typeof target === 'undefined'
+  return target === undefined
 }
 export const isNull = (target: any): target is null => {
-  return typeof target === null
+  return target === null
 }
 export const isNil = (target: any): target is null | undefined => {
-  return typeof target === null || typeof target === 'undefined'
+  return target === null || target === undefined
 }
 export const isEmpty = (target: any) => {
   if (typeof target === null || typeof target === 'undefined') return true
