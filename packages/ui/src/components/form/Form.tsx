@@ -1,4 +1,4 @@
-import { computed, defineComponent, getCurrentInstance, provide } from 'vue'
+import { defineComponent, getCurrentInstance, provide } from 'vue'
 import { useNamespace } from '@/hooks'
 import { FormContext } from './types'
 import { FORM_CTX_INJECTION_KEY } from './constants'
@@ -13,12 +13,11 @@ export default defineComponent({
   setup(props, { slots }) {
     const ns = useNamespace('form')
     const ins = getCurrentInstance()
-    const model = useVModel(props, 'model')
-    const isVModel = computed(() => isFunction(ins?.proxy?.$attrs['onUpdate:model']))
+    const data = useVModel(props, 'data')
     const { size, labelAlign, labelWidth, readonly, disabled } = useFormCommon()
     const ctx: FormContext = {
-      get model() {
-        return model.value
+      get data() {
+        return data.value
       },
       get size() {
         return size.value
@@ -36,7 +35,7 @@ export default defineComponent({
         return readonly.value
       },
       get isVModel() {
-        return isVModel.value
+        return isFunction(ins?.proxy?.$attrs['onUpdate:data'])
       },
     }
     provide(FORM_CTX_INJECTION_KEY, ctx)

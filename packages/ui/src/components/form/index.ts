@@ -10,5 +10,6 @@ export default withInstall(Form, {
 export const VForm = Form
 export const VField = Field
 export * from './props'
+export * from './hooks/use-model'
 export * from './hooks/use-form'
 export * from './hooks/use-form-common'

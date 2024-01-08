@@ -2,9 +2,8 @@ import { computed, defineComponent, h, ref } from 'vue'
 import { Close } from '@vxin/icons'
 import { isEmpty, isFunction, isNil, isNumber } from '@vxin/utils'
 import { useNamespace } from '@/hooks'
-import { useFormSize, useFormDisabled, useFormReadonly, VBtn, useForm } from '@/components'
+import { useFormSize, useFormDisabled, useFormReadonly, VBtn, useForm, useModel } from '@/components'
 import { inputProps } from './props'
-import { useVModel } from '@vxin/hooks'
 
 export default defineComponent({
   name: 'VInput',
@@ -13,7 +12,7 @@ export default defineComponent({
   setup(props, { emit, slots }) {
     const ns = useNamespace('input')
     const inputRef = ref<HTMLInputElement>()
-    const modelValue = useVModel(props, 'modelValue', true)
+    const modelValue = useModel(props, 'modelValue')
     const size = useFormSize()
     const readonly = useFormReadonly()
     const disabled = useFormDisabled()

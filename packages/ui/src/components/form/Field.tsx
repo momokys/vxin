@@ -13,13 +13,13 @@ export default defineComponent({
     const ns = useNamespace('form-item')
     const id = uniqueId('v-form-item')
     const [form, parent] = useForm()
-    const model = computed(() => {
+    const data = computed(() => {
       if (isNil(parent)) {
-        return form?.model
+        return form?.data
       } else if (isEmpty(parent.name) || isEmpty(props.name)) {
-        return parent.model
+        return parent.data
       } else {
-        return parent.model[parent.name!] ?? form?.model
+        return parent.data[parent.name!] ?? form?.data
       }
     })
     const { size, labelAlign, labelWidth, readonly, disabled } = useFormCommon()
@@ -30,8 +30,8 @@ export default defineComponent({
       get name() {
         return props.name
       },
-      get model() {
-        return model.value
+      get data() {
+        return data.value
       },
       get size() {
         return size.value
@@ -52,7 +52,7 @@ export default defineComponent({
         return parent
       },
       get isVModel() {
-        return parent?.isVModel
+        return form?.isVModel
       },
     }
     provide(FIELD_CTX_INJECTION_KEY, ctx)
