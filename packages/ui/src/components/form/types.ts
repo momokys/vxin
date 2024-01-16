@@ -6,11 +6,12 @@ export interface FormMeta {
   readonly size: ComponentSize
   readonly labelAlign: FormLabelAlign
   readonly labelWidth?: string | number
-  readonly disabled?: boolean
   readonly readonly?: boolean
+  readonly disabled?: boolean
 }
 export interface FormContext<T extends object = Dict> extends FormMeta {
   readonly data?: T
+  readonly schema: FormSchema
   readonly isVModel?: boolean
 }
 
@@ -22,10 +23,15 @@ export interface FieldContext extends FormMeta {
   readonly isVModel?: boolean
 }
 
-export type FormSchema = FieldSchema
-export type FieldSchema = StringSchema | NumberSchema | BooleanSchema | ObjectSchema | ArraySchema
-
-export type FieldType = 'string' | 'number' | 'boolean' | 'object' | 'array'
+export type FormSchema = ObjectSchema
+export type FieldSchema = StringSchema | NumberSchema | BooleanSchema | ObjectSchema | ArraySchema | VoidSchema
+export type FieldType = 'string' | 'number' | 'boolean' | 'object' | 'array' | 'void'
+export interface VoidSchema {
+  type: 'void'
+  required?: boolean | ((data: any) => boolean)
+  disabled?: boolean | ((data: any) => boolean)
+  readonly?: boolean | ((data: any) => boolean)
+}
 export interface BaseSchema {
   type: FieldType
   required?: boolean | ((data: any) => boolean)
@@ -49,7 +55,7 @@ export interface ObjectSchema extends BaseSchema {
 }
 export interface ArraySchema extends BaseSchema {
   type: 'array'
-  item?: FormSchema
+  item?: FieldSchema
 }
 export interface Rule {
   min?: number

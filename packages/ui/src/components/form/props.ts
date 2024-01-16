@@ -1,5 +1,5 @@
 import { ExtractPropTypes, PropType } from 'vue'
-import { FormSchema, FieldSchema, FormLabelAlign } from './types'
+import { FormSchema, FormLabelAlign, FieldType, Rule } from './types'
 import { ComponentSize } from '@/utils'
 import { Dict } from '@vxin/utils'
 
@@ -26,8 +26,10 @@ export type FormProps = ExtractPropTypes<typeof formProps>
 
 export const fieldProps = {
   ...formCommonProps(),
-  name: String,
+  required: Boolean,
   label: String,
-  schema: Object as PropType<FieldSchema>,
+  type: String as PropType<FieldType>,
+  name: String,
+  rules: [Object, Array] as PropType<Rule | Rule[]>,
 }
 export type FieldProps = ExtractPropTypes<typeof fieldProps>
