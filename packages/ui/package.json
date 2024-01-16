@@ -6,7 +6,9 @@
   "main": "./src/index.ts",
   "module": "./src/index.ts",
   "scripts": {
-    "story:dev": "histoire dev"
+    "story:dev": "histoire dev",
+    "story:build": "histoire build",
+    "story:preview": "histoire preview"
   },
   "peerDependencies": {
     "vue": "^3.2.47"

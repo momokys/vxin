@@ -11,6 +11,7 @@ export default defineConfig({
   plugins: [HstVue()],
   vite: {
     root: path.resolve(__dirname),
+    base: '/vxin/ui/',
     resolve: {
       alias: {
         '@': fileURLToPath(new URL('./src', import.meta.url)),
